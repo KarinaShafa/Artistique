@@ -2,8 +2,10 @@ import { useContext } from "react";
 import { Box, ScrollView, Text, Center } from "native-base";
 import { ThemeContext } from "../../../component/themeContext";
 import colors from "../../../component/theme";
+// import colors from "../component/theme";
+// import { ThemeContext } from "../component/themeContext";
 
-const ReportScreen = () => {
+const HistoryScreen = () => {
   // const theme = { mode: "dark" };
   const { theme, updateTheme } = useContext(ThemeContext);
   let activeColors = colors[theme.mode];
@@ -13,7 +15,7 @@ const ReportScreen = () => {
       <ScrollView flex={1} backgroundColor={activeColors.primary}>
         <Box mt={96}>
           <Center>
-            <Text color={activeColors.tint}>Ini adalah halaman Report Bug</Text>
+            <Text color={activeColors.tint}>History Booked Page Here!</Text>
           </Center>
         </Box>
       </ScrollView>
@@ -21,4 +23,5 @@ const ReportScreen = () => {
   );
 };
 
-export default ReportScreen;
+export default HistoryScreen;
+

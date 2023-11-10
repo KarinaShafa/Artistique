@@ -8,8 +8,8 @@ const Header = (props) => {
     <Box>
       <Flex direction="row">
         <Input
-          value={props.pencarian}
-          onChangeText={(text) => props.setPencarian(text)}
+          value={props.search}
+          onChangeText={(text) => props.setSearch(text)}
           placeholder="Search..."
           backgroundColor={"#FFFFFF"}
           mt={5}
