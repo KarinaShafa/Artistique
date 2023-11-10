@@ -182,7 +182,7 @@ const ProfileScreen = () => {
               color={activeColors.tint}
               textAlign={"center"}
             >
-              Elsa Olaf
+              Elsa Olaf1
             </Text>
             <Text
               mt={3}
