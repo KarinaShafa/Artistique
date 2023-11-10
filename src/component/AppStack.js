@@ -11,6 +11,7 @@ import RegisterScreen from "../Screen/Profile/Auth/Register";
 import ForgotPasswordScreen from "../Screen/Profile/Auth/Forgot";
 import MyProfileScreen from "../Screen/Profile/Account/MyProfile";
 import ResetPasswordScreen from "../Screen/Profile/Account/ResetPassword";
+import MUADetails from "../Screen/MUADetail";
 import RoomChatScreen from "../Screen/RoomChat";
 import colors from "./theme";
 import { ThemeContext } from "./themeContext";
@@ -32,6 +33,25 @@ const AppStack = () => {
         <>
             <Stack.Navigator initialRouteName="Welcome">
                 <Stack.Screen
+                    name="MUADetails"
+                    component={MUADetails}
+                    options={({ route }) => ({
+                        headerShown: true,
+                        // headerTitle: "",
+                        title: route.params.userName,
+                    })}
+                    initialParams={{
+                        userName: "",
+                        userImg: null,
+                        // star: "",
+                        text: "",
+                        specialty: "",                        
+                        exp: "",
+                        reviews: "",
+                    }}
+                />   
+
+                <Stack.Screen
                     name="Language"
                     component={LanguageScreen}
                     options={{ headerShown: false }}
@@ -52,13 +72,27 @@ const AppStack = () => {
                 <Stack.Screen
                     name="ReportBug"
                     component={ReportScreen}
-                    options={{ headerShown: false }}
+                    options={{ headerTitle: "Report Bug",
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: activeColors.primary,
+                    },
+                    headerTintColor: activeColors.tint,
+                    headerTitleAlign: "center",
+                }}
                 />
 
                 <Stack.Screen
                     name="ContactUs"
                     component={ContactScreen}
-                    options={{ headerShown: false }}
+                    options={{ headerTitle: 'Contact Us',
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: activeColors.primary,
+                    },
+                    headerTintColor: activeColors.tint,
+                    headerTitleAlign: "center",
+                }}
                 />
 
                 <Stack.Screen
@@ -149,3 +183,4 @@ const AppStack = () => {
 }
 
 export default AppStack;
+
