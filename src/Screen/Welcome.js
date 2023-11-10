@@ -73,7 +73,7 @@ const WelcomeScreen = () => {
             paddingHorizontal: 16,
             width: "48%",
             borderRadius: 10,
-            shadowColor: "#415AE2",
+            shadowColor: "#EDA99A",
             shadowOffset: {
               width: 0,
               height: 4,
