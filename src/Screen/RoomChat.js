@@ -1,5 +1,5 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import { Box, ScrollView, Text, Center } from "native-base";
+import { useCallback, useContext, useState } from "react";
+import { Box, Text, Center } from "native-base";
 import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
 import {
@@ -12,64 +12,41 @@ import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
-import { View } from "react-native";
-// import { GiftedChat } from 'react-native-gifted-chat'
+
+
 
 const RoomChatScreen = () => {
   // const theme = { mode: "dark" };
   const { theme, updateTheme } = useContext(ThemeContext);
   let activeColors = colors[theme.mode];
 
-  // useEffect(() => {
-  //   setMessages([
-  //     {
-  //       _id: 1,
-  //       text: "Hello developer",
-  //       createdAt: new Date(),
-  //       user: {
-  //         _id: 2,
-  //         name: "React Native",
-  //         avatar: require("../../assets/Chat/user-2.jpg"),
-  //       },
-  //     },
-  //     {
-  //       _id: 2,
-  //       text: "Hello It's Work",
-  //       createdAt: new Date(),
-  //       user: {
-  //         _id: 1,
-  //         name: "React Native",
-  //         avatar: require("../../assets/Chat/user-2.jpg"),
-  //       },
-  //     },
-  //   ]);
-  // }, []);
-
   const route = useRoute();
   const initialMessageText = route.params ? route.params.messageText : "";
   const initialUserImg = route.params ? route.params.userImg : null;
 
+  // menyimpan isi pesan (isi pesan MUA yang dimunculkan)
   const [messages, setMessages] = useState([
-    {
-      _id: 2,
-      text: initialMessageText,
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: "React Native",
-        avatar: initialUserImg,
-      },
-    },
     {
       _id: 1,
       text: "Hello",
       createdAt: new Date(),
       user: {
         _id: 2,
-        name: "React Native",
+        name: "Teks",
         avatar: initialUserImg,
       },
     },
+    {
+      _id: 2,
+      text: initialMessageText,
+      createdAt: new Date(),
+      user: {
+        _id: 2,
+        name: "Teks2",
+        avatar: initialUserImg,
+      },
+    },
+    
   ]);
 
   const onSend = useCallback((messages = []) => {
@@ -78,12 +55,15 @@ const RoomChatScreen = () => {
     );
   }, []);
 
+  // scroll down
   const scrollToBottomComponent = () => {
-    return <FontAwesome name="angle-double-down" size={22} color={"#333"} />;
+    return <FontAwesome name="angle-double-down" size={22} color={"#000000"} />;
   };
 
+  // balon pesan
   const renderBubble = (props) => {
     return (
+      // right=MUA, left=user
       <Bubble
         {...props}
         wrapperStyle={{
@@ -91,7 +71,7 @@ const RoomChatScreen = () => {
             backgroundColor: "#A01437",
           },
           left: {
-            backgroundColor: "#A01437",
+            backgroundColor: "#cd5c5c",
           },
         }}
         textStyle={{
@@ -106,6 +86,7 @@ const RoomChatScreen = () => {
     );
   };
 
+  // button send di input teks
   const renderSend = (props) => {
     return (
       <Send {...props}>
@@ -134,13 +115,12 @@ const RoomChatScreen = () => {
           borderRadius: 30,
           borderTopWidth: 0,
           borderColor: "black",
-          // borderTopLeftRadius: 20, // Atur radius sesuai keinginan Anda
-          // borderTopRightRadius: 20, // Atur radius sesuai keinginan Anda
         }}
       />
     );
   };
 
+  // teks keterangan waktu di buble
 	const renderTime = (timeProps) => {
 		const createdAt = new Date(timeProps.currentMessage.createdAt);
 		const hours = createdAt.getHours();
@@ -154,7 +134,7 @@ const RoomChatScreen = () => {
 					paddingLeft: 8,
 					paddingBottom: 4,
 					fontSize: 10,
-					color: '#fff', // Atur warna teks waktu menjadi putih
+					color: '#fff', // warna teks waktu menjadi putih
 				}}
 			>
 				{formattedTime}
@@ -163,25 +143,30 @@ const RoomChatScreen = () => {
 	};
 
   return (
-    <GiftedChat
-      messages={sortedMessages}
-      onSend={(messages) => onSend(messages)}
-      user={{
-        _id: 1,
-      }}
-      renderBubble={renderBubble}
-      alwaysShowSend
-      renderSend={renderSend}
-      scrollToBottom
-      scrollToBottomComponent={scrollToBottomComponent}
-      messagesContainerStyle={{
-        paddingBottom: 80,
-        height: 720,
-        backgroundColor: activeColors.secondary,
-      }}
-      renderInputToolbar={renderInputToolbar}
-			renderTime={renderTime}
-    />
+    
+      <Box flex={1}>
+        <GiftedChat flex={1}
+          messages={sortedMessages}
+          onSend={(messages) => onSend(messages)}
+          user={{
+            _id: 1,
+          }}
+          renderBubble={renderBubble}
+          alwaysShowSend
+          renderSend={renderSend}
+          scrollToBottom
+          scrollToBottomComponent={scrollToBottomComponent}
+          messagesContainerStyle={{
+            paddingBottom: 100,
+            paddingTop:10,
+            backgroundColor: activeColors.secondary,
+          }}
+          renderInputToolbar={renderInputToolbar}
+          renderTime={renderTime}
+          // keyboardVerticalOffset={80}
+        />
+      </Box>
+    
   );
 };
 
