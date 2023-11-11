@@ -39,26 +39,21 @@ const MUADetails = () => {
       name: userName,
       userImg: userImg,
       speciality: specialty,
-      // rating: {
-      //   star: <FontAwesome name="star" color="orange" size={12} />,
-      //   text: <Text>4.8</Text>,
-      // },
-    //   star: star,
       text: text,
       exp: exp,
       reviews: reviews,
       about:
-        ".",
+      "Clara Ayu Sheila adalah seorang makeup artist berbakat yang telah mengejar karirnya dalam industri kecantikan. Dengan fokus khusus pada makeup untuk kelulusan dan pernikahan, Clara Ayu Sheila berkomitmen untuk membuat momen spesial Anda terasa lebih istimewa dan berkesan.",
     },
   ];
 
   return (
-    <ScrollView>
+    <ScrollView bg="#EBB9BB">
       <Box flex={1} p={2}>
         <Box bg="#EBB9BB" p={2} mb={2}>
           <Box flexDirection="row" alignItems="center">
             <Image
-              source={MUAData[0].userImg} // Ganti dengan URL gambar profil MUA
+              source={MUAData[0].userImg} 
               alt="MUA Profile"
               size="100"
               borderRadius="50px"
@@ -71,9 +66,6 @@ const MUADetails = () => {
               <Text fontSize={12} color={"gray.600"}>
                 Rating:
                 <FontAwesome name="star" color="purple" size={12} /> <Text>{MUAData[0].text}</Text> 
-                {/* {console.log(MUAData[0].text)}
-                {console.log(initialName)}
-                {console.log(initialSpecialty)} */}
               </Text>
             </Box>
           </Box>
@@ -84,46 +76,38 @@ const MUADetails = () => {
           <Text>{MUAData[0].about}</Text>
         </Box>
 
-        <Box bg="white" p={2}>
+        <Box bg="#EBB9BB" p={2}>
           <Text>
             Experience: <Text fontWeight={"bold"}>{MUAData[0].exp}</Text>
           </Text>
           <Text>
-            Reviews: <Text fontWeight={"bold"}>{MUAData[0].reviews}</Text>
+            Social Media: @makeupbycla @claraayusheila <Text fontWeight={"bold"}>{MUAData[0].reviews}</Text>
           </Text>
         </Box>
 
-        <Box bg="white" p={2}>
-          <Text mb={1}>Service at</Text>
-          <Text fontWeight={600}>Beauty Salon</Text>
-          <Text color={"gray.600"}>
-            <Icon
-              as={Ionicons}
-              name="location-outline"
-              size={5}
-              color="gray.600"
-            />
-            Tangerang, Jakarta, Indonesia
-          </Text>
+        <Box bg="#EBB9BB" p={2}>
           <Center>
-            <TouchableOpacity onPress={() => {}}
-              style={{
-                width: "85%",
-                backgroundColor: "#0082f7",
-                borderRadius: 12,
-                marginVertical: 12,
-              }}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Message");
+            }}
+            style={{
+              width: "85%",
+              backgroundColor: "#A01437",
+              borderRadius: 12,
+              marginVertical: 12,
+              paddingVertical: 12,
+            }}
+          >
+            <Text
+              textAlign="center"
+              fontSize={16}
+              color="#fff"
             >
-              <Text
-                textAlign="center"
-                fontSize={16}
-                // fontFamily="NotoSansBlack"
-                color="#fff"
-                py={3}
-              >
-                Chat Now
-              </Text>
-            </TouchableOpacity>
+              Chat Now
+            </Text>
+          </TouchableOpacity>
+
           </Center>
         </Box>
       </Box>

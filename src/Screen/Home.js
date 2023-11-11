@@ -20,39 +20,42 @@ import ScheduleBooked from "../component/ScheduleBooked";
 import Header from "../component/Header";
 import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
-// import { ThemeContext } from "../component/themeContext";
+import { useNavigation } from "@react-navigation/native";
+import DataArticles from "../component/DataArticle";
+import DataRecomendation from "../component/DataRecomendation";
 
 const Home = () => {
   // const theme = { mode: "dark" };
   const { theme } = useContext(ThemeContext);
   let activeColors = colors[theme.mode];
 
+  const navigation = useNavigation();
+  const DataArticle = DataArticles;
+  const DataRecomendation = DataRecomendation;
+
+  const [dataView, setDataView] = useState(DataArticle);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState([
     { categoryName: "Article" },
     { categoryName: "QnA" },
     { categoryName: "Recomendation" },
     { categoryName: "Search MUA" },
-    { categoryName: "MUA Nearby" },
   ]);
 
-  const [article, setArticle] = useState([
-    {
-      title: "Bikin Kulit Glowing dan Sehat",
-      description: "Ini Dia Tren Skincare Skinimalism yang Bisa Dicoba!",
-      image: require("../image/ARTICLE2.jpg"),
-    },
-    {
-      title: "Tampil Playful dengan 5 Eyeliner Berwarna",
-      description: "ganti eyeliner hitam menjadi warna-warni!",
-      image: require("../image/ARTICLE1.png"),
-    },
-    {
-      title: "Membuat Pipi Merona Alami dan Fresh",
-      description: "Cobain 2 Blush Pemenang Female Daily Best",
-      image: require("../image/ARTICLE3.png"),
-    },
-  ]);
+  const categoryHandler = (props) => {
+    if (props === "Search MUA") {
+      navigation.navigate("MUA");
+    } 
+    else if (props === "QnA") {
+      navigation.navigate("Message");
+    } 
+    else if (props === "Article") {
+      setDataView(DataArticle);
+    } 
+    else if (props === "Recomendation") {
+      setDataView(DataRecomendation);
+    }
+  };
 
   return (
     <SafeAreaView flex={1}>
@@ -81,10 +84,7 @@ const Home = () => {
                 flex: 1,
               }}
             >
-              <Text
-              color={"#A01437"}
-              fontWeight={"bold"}
-              >
+              <Text color={"#A01437"} fontWeight={"bold"}>
                 View More
               </Text>
             </TouchableOpacity>
@@ -108,6 +108,7 @@ const Home = () => {
                   marginBottom: 10,
                   marginTop: 10,
                 }}
+                onPress={() => categoryHandler(item.categoryName)}
               >
                 <Text>{item.categoryName}</Text>
               </TouchableOpacity>
@@ -117,7 +118,7 @@ const Home = () => {
 
         <Box>
           <FlatList
-            data={article}
+            data={dataView}
             mb={5}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -132,13 +133,15 @@ const Home = () => {
                   marginTop: 10,
                   paddingBottom: 20,
                 }}
+                onPress={() =>
+                  navigation.navigate("ArticleDetail", {
+                    image: item.image,
+                    title: item.judul,
+                    content: item.content,
+                  })
+                }
               >
-                <Box
-                  h={200}
-                  mb={3}
-                  roundedTopRight={10}
-                  roundedTopLeft={10}
-                >
+                <Box h={200} mb={3} roundedTopRight={10} roundedTopLeft={10}>
                   <ImageBackground
                     source={item.image}
                     style={{
@@ -153,31 +156,42 @@ const Home = () => {
                   />
                 </Box>
 
-                <Box>
-                  <Image
-                    source={item.image}
-                    w={10}
-                    h={10}
-                    rounded={20}
-                    borderColor={"white"}
-                    borderWidth={2}
-                    ml={2.5}
-                    mt={1.5}
-                    alt="MUA"
-                  />
-                  <Text
+                <Box flexDirection={"row"}>
+                  <Box>
+                    <Image
+                      source={item.image}
+                      w={10}
+                      h={10}
+                      rounded={20}
+                      borderColor={"white"}
+                      borderWidth={2}
+                      ml={2.5}
+                      mt={1.5}
+                      alt="MUA"
+                    />
+                  </Box>
+                    <Text
                     fontWeight={"bold"}
                     fontSize={18}
                     mx={2.5}
+                    numberOfLines={2}
                     mt={1.5}
-                  >
-                    {item.title}
-                  </Text>
-                  <Text
-                  mx={2.5}
-                  >
-                    {item.description}
-                  </Text>
+                    >
+                      {item.judul.split(" ").map((word, index, array) => (
+                        <React.Fragment key={index}>
+                          {word} {index === array.length - 1 ? null : " "}
+                          {index !== 0 && (index + 1) % 5 === 0 ? "\n" : null}
+                        </React.Fragment>
+                      ))}
+                    </Text>
+                    <Text mx={2.5} numberOfLines={2}>
+                      {item.deskripsi.split(" ").map((word, index, array) => (
+                        <React.Fragment key={index}>
+                          {word} {index === array.length - 1 ? null : " "}
+                          {index !== 0 && (index + 1) % 5 === 0 ? "\n" : null}
+                        </React.Fragment>
+                      ))}
+                    </Text>
                 </Box>
               </TouchableOpacity>
             )}

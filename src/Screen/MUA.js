@@ -157,8 +157,8 @@ const MUA = () => {
                         >
                           <Flex direction="column">
                             <Box mb={"1"}>
-                              <Flex direction="row">
-                                <HStack space={32}>
+                              <Flex direction="row" justifyContent="space-between" alignItems="center" width="100%">
+                                <HStack alignItems="center" space={32} width="70%">
                                   <HStack>
                                     <Text
                                       fontSize={"14"}
@@ -168,7 +168,7 @@ const MUA = () => {
                                       {item.userName}
                                     </Text>
                                   </HStack>
-                                  <HStack alignItems="center">
+                                  <HStack alignItems="center" space={2}>
                                     {item.star}
                                     <Text>{item.text}</Text> 
                                   </HStack>

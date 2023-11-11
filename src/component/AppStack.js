@@ -16,6 +16,9 @@ import RoomChatScreen from "../Screen/RoomChat";
 import colors from "./theme";
 import { ThemeContext } from "./themeContext";
 import HistoryScreen from "../Screen/Profile/Content/History";
+import BookedScreen from "../Screen/Booked"; 
+import BookedDetail from "../Screen/BookedDetail";
+import ArticleDetail from "../Screen/ArticleDetail";
 
 
 const Stack = createStackNavigator();
@@ -99,6 +102,22 @@ const AppStack = () => {
                 />
 
                 <Stack.Screen
+                        name="ArticleDetail"
+                        component={ArticleDetail}
+                        options={({ route }) => ({
+                            title: route.params.title,
+                            headerShown: true,
+                            headerTitle: "Article Detail", // Menggunakan judul dari parameter rute
+                            headerTitleAlign: "center",
+                        })}
+                            initialParams={{
+                            image: null,
+                            title: "",
+                            content: "",
+                        }}
+                />
+
+                <Stack.Screen
                     options={{
                         headerStyle: {
                             backgroundColor: activeColors.primary,
@@ -121,6 +140,26 @@ const AppStack = () => {
                     }}
                     name="ResetPassword"
                     component={ResetPasswordScreen}
+                />
+
+                <Stack.Screen
+                    name="Booked"
+                    component={BookedScreen}
+                    options={{
+                        headerShown: true,
+                        headerTitle: "Booked",
+                        headerTitleAlign: "center",
+                    }}
+                />
+
+                <Stack.Screen
+                    name="BookedDetail"
+                    component={BookedDetail}
+                    options={{
+                        headerShown: true,
+                        headerTitle: "Booked Detail",
+                        headerTitleAlign: "center",
+                    }}
                 />
 
                 <Stack.Screen
