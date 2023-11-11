@@ -15,11 +15,8 @@ import MUADetails from "../Screen/MUADetail";
 import RoomChatScreen from "../Screen/RoomChat";
 import colors from "./theme";
 import { ThemeContext } from "./themeContext";
-import LanguageScreen from "../Screen/Profile/Preferences/Language";
-import LocationScreen from "../Screen/Profile/Preferences/Location";
 import HistoryScreen from "../Screen/Profile/Content/History";
-import ReportScreen from "../Screen/Profile/Actions/ReportBug";
-import ContactScreen from "../Screen/Profile/Actions/ContactUs";
+
 
 const Stack = createStackNavigator();
 
@@ -52,47 +49,9 @@ const AppStack = () => {
                 />   
 
                 <Stack.Screen
-                    name="Language"
-                    component={LanguageScreen}
-                    options={{ headerShown: false }}
-                />
-
-                <Stack.Screen
-                    name="Location"
-                    component={LocationScreen}
-                    options={{ headerShown: false }}
-                />
-
-                <Stack.Screen
                     name="History"
                     component={HistoryScreen}
                     options={{ headerShown: false }}
-                />
-
-                <Stack.Screen
-                    name="ReportBug"
-                    component={ReportScreen}
-                    options={{ headerTitle: "Report Bug",
-                    headerShown: true,
-                    headerStyle: {
-                        backgroundColor: activeColors.primary,
-                    },
-                    headerTintColor: activeColors.tint,
-                    headerTitleAlign: "center",
-                }}
-                />
-
-                <Stack.Screen
-                    name="ContactUs"
-                    component={ContactScreen}
-                    options={{ headerTitle: 'Contact Us',
-                    headerShown: true,
-                    headerStyle: {
-                        backgroundColor: activeColors.primary,
-                    },
-                    headerTintColor: activeColors.tint,
-                    headerTitleAlign: "center",
-                }}
                 />
 
                 <Stack.Screen

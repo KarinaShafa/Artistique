@@ -33,25 +33,11 @@ const SECTIONS = [
     icon: "settings",
     items: [
       {
-        id: "Language",
-        icon: "globe",
-        color: "#fe9400",
-        label: "Language",
-        type: "link",
-      },
-      {
         id: "darkMode",
         icon: "moon",
         color: "#007afe",
         label: "Dark Mode",
         type: "toogle",
-      },
-      {
-        id: "Location",
-        icon: "navigation",
-        color: "#32c759",
-        label: "Location",
-        type: "link",
       },
       // {
       //   id: "showCollaborators",
@@ -77,7 +63,7 @@ const SECTIONS = [
         id: "History",
         icon: "save",
         color: "#32c759",
-        label: "History Pemeriksaan",
+        label: "History Booked",
         type: "link",
       },
       // { 
@@ -92,20 +78,6 @@ const SECTIONS = [
     header: "Support",
     icon: "help-circle",
     items: [
-      {
-        id: "ReportBug",
-        icon: "flag",
-        color: "#8e8d91",
-        label: "Report Bug",
-        type: "link",
-      },
-      {
-        id: "ContactUs",
-        icon: "mail",
-        color: "#007afe",
-        label: "Contact Us",
-        type: "link",
-      },
       {
         id: "AddAccount",
         icon: "users",
@@ -150,24 +122,9 @@ const ProfileScreen = () => {
       navigation.navigate("MyProfile");
     }
     
-    else if (id === "Language") {
-      navigation.navigate("Language")
-    }
-
-    else if (id === "Location") {
-      navigation.navigate("Location")
-    }
 
     else if (id === "History") {
       navigation.navigate("History")
-    }
-
-    else if (id === "ReportBug") {
-      navigation.navigate("ReportBug")
-    }
-    
-    else if (id === "ContactUs") {
-      navigation.navigate("ContactUs")
     }
 
     else if (id === "AddAccount") {
