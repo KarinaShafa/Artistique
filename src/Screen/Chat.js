@@ -1,10 +1,8 @@
 import { useContext } from "react";
 import {
   Box,
-  ScrollView,
   Text,
   Center,
-  Button,
   FlatList,
   Flex,
   Image,
@@ -16,7 +14,7 @@ import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
 import { useNavigation } from "@react-navigation/native";
 import { Keyboard, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const Messages = [
   {
@@ -101,6 +99,7 @@ const PesanScreen = () => {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={{ width: "100%" }}
+                  // saat ditekan data akan ikut dibawah ke roomchat
                   onPress={() =>
                     navigation.navigate("RoomChat", {
                       userName: item.userName,
@@ -126,7 +125,7 @@ const PesanScreen = () => {
                         p={"15"}
                         pl={0}
                         ml={"3"}
-                        w={"300"}
+                        w={"100%"}
                         borderBottomWidth={"1"}
                         borderBottomColor={"#cccccc"}
                       >
@@ -138,10 +137,12 @@ const PesanScreen = () => {
                                   fontSize={"14"}
                                   fontWeight={"bold"}
                                   color={activeColors.tint} 
+                                  w={78}
                                 >
                                   {item.userName}
                                 </Text>
-                                <Box ml={-5}>
+
+                                <Box ml={-10}>
                                   <Text fontSize={12} color={activeColors.tint}>
                                     {item.messageTime}
                                   </Text>
@@ -149,9 +150,7 @@ const PesanScreen = () => {
                               </HStack>
                             </Flex>
                           </Box>
-                          {/* <Text fontSize={"14"} mr={10} color={activeColors.tertiary}>
-                          {item.messageText}
-                        </Text> */}
+                         
                           <Text fontSize={"14"} color={activeColors.tertiary}>
                             {item.messageText.length > 40
                               ? item.messageText.slice(0, 40) + "..."
@@ -166,7 +165,6 @@ const PesanScreen = () => {
             />
           </Center>
         </Box>
-        {/* </ScrollView> */}
       </Box>
     </TouchableWithoutFeedback>
   );
