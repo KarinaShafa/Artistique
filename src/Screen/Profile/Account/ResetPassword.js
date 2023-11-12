@@ -56,7 +56,7 @@ const ResetPasswordScreen = ({ navigation }) => {
               <Center>
                 <Box>
                   <Image
-                    source={require("../../../../assets/images/reset.png")}
+                    source={require("../../../../assets/images/resetpassword.png")}
                     alt="Welcome Image"
                     resizeMode="contain"
                     style={{
@@ -96,7 +96,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                       }
                       placeholder="Current Password"
                       placeholderTextColor={"black"}
-                      backgroundColor={"#E4F1FF"}
+                      backgroundColor={"#F3D2CB"}
                       borderWidth={0}
                       rounded={6}
                       fontSize={16}
@@ -134,7 +134,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                       }
                       placeholder="New Password"
                       placeholderTextColor={"black"}
-                      backgroundColor={"#E4F1FF"}
+                      backgroundColor={"#F3D2CB"}
                       borderWidth={0}
                       rounded={6}
                       fontSize={16}
@@ -172,7 +172,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                       }
                       placeholder="Confirm Password"
                       placeholderTextColor={"black"}
-                      backgroundColor={"#E4F1FF"}
+                      backgroundColor={"#F3D2CB"}
                       borderWidth={0}
                       rounded={6}
                       fontSize={16}
@@ -184,7 +184,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                     <TouchableOpacity
                       style={{
                         width: "85%",
-                        backgroundColor: "#A01437",
+                        backgroundColor: "#EDA99A",
                         borderRadius: 12,
                       }}
                       onPress={() => navigation.goBack()}

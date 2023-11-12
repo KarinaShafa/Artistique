@@ -67,8 +67,7 @@ const MyProfileScreen = () => {
     <ScrollView backgroundColor={activeColors.primary}>
       <Box flex={1} p={5}>
         <Text py={2} color={activeColors.tint}>
-          Informasi data diri anda belum lengkap, silahkan lengkapi data diri
-          anda.
+          change your profile here!
         </Text>
 
         <Box mb={5} backgroundColor={activeColors.secondary}>
@@ -86,7 +85,7 @@ const MyProfileScreen = () => {
                       No Telepone
                     </Text>
                     <TouchableOpacity onPress={() => handleEditAndSave("Telp")}>
-                      <Text color={"#0082F7"} mr={16} ml={-16}>
+                      <Text color={"#A01437"} mr={16} ml={-16}>
                         {editingTelp ? "SIMPAN" : "UBAH"}
                       </Text>
                     </TouchableOpacity>
@@ -141,7 +140,7 @@ const MyProfileScreen = () => {
                     <TouchableOpacity
                       onPress={() => handleEditAndSave("Email")}
                     >
-                      <Text color={"#0082F7"} ml={-4} mr={4}>
+                      <Text color={"#A01437"} ml={-4} mr={4}>
                         {editingEmail ? "SIMPAN" : "UBAH"}
                       </Text>
                     </TouchableOpacity>
@@ -204,7 +203,7 @@ const MyProfileScreen = () => {
                           fontSize={18}
                           color={activeColors.tint}
                         >
-                          Pasien
+                          User
                         </Text>
                       </Box>
                     </Flex>
@@ -225,7 +224,7 @@ const MyProfileScreen = () => {
                           fontSize={18}
                           color={activeColors.tint}
                         >
-                          00521
+                          00001
                         </Text>
                       </Box>
                     </Flex>
@@ -248,7 +247,7 @@ const MyProfileScreen = () => {
                     <TouchableOpacity
                       onPress={() => handleEditAndSave("Biodata")}
                     >
-                      <Text color={"#0082F7"} mr={20} ml={-20}>
+                      <Text color={"#A01437"} mr={20} ml={-20}>
                         {editingNama ? "SIMPAN" : "UBAH"}
                       </Text>
                     </TouchableOpacity>
