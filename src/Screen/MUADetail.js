@@ -18,20 +18,12 @@ const MUADetails = () => {
   const navigation = useNavigation();
 
   const route = useRoute();
-  //   const initialName = route.params ? route.params.userName : "";
-  //   const initialUserImg = route.params ? route.params.userImg : null;
-  //   const initialStar = route.params ? route.params.star : "";
-  //   const initialText = route.params ? route.params.text : "";
-  //   const initialSpecialty = route.params ? route.params.speciality : "";
-  //   const initialExp = route.params ? route.params.exp : "";
-  //   const initialReviews = route.params ? route.params.reviews : "";
 
   const initialData = route.params ? route.params.MUAData : null;
 
   // Kemudian, Anda dapat mengakses data seperti ini:
   const userName = initialData.userName;
   const userImg = initialData.userImg;
-//   const star = initialData.star;
   const text = initialData.text;
   const specialty = initialData.specialty;
   const exp = initialData.exp;

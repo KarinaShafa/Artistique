@@ -187,9 +187,8 @@ const BookedScreen = () => {
       </Box>
       {selectedMakeupArtist && (
         <BookedDetail
-          makeupArtist={selectedMakeupArtist}
-          onClose={() => setSelectedMakeupArtist(null)}
-          onBookNow={handleBookNow}
+          makeupArtist={selectedMakeupArtist} //objek MUA yang telah dipilih
+          onClose={() => setSelectedMakeupArtist(null)} 
         />
       )}
     </MenuProvider>

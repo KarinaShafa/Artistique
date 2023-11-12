@@ -4,7 +4,6 @@ import { Box, Text, Image } from "native-base";
 import { useRoute } from "@react-navigation/core";
 
 const ArticleDetail = () => {
-  //   const { title, content, image } = route.params;
 
 	const route = useRoute();
 

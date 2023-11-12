@@ -19,7 +19,7 @@ import HistoryScreen from "../Screen/Profile/Content/History";
 import BookedScreen from "../Screen/Booked"; 
 import BookedDetail from "../Screen/BookedDetail";
 import ArticleDetail from "../Screen/ArticleDetail";
-
+import RecomendationDetail from "../Screen/DetailRecomendation";
 
 const Stack = createStackNavigator();
 
@@ -118,6 +118,22 @@ const AppStack = () => {
                 />
 
                 <Stack.Screen
+                        name="DetailRecomendation"
+                        component={RecomendationDetail}
+                        options={({ route }) => ({
+                            title: route.params.title,
+                            headerShown: true,
+                            headerTitle: "Recomendation Detail", // Menggunakan judul dari parameter rute
+                            headerTitleAlign: "center",
+                        })}
+                            initialParams={{
+                            image: null,
+                            title: "",
+                            content: "",
+                        }}
+                />
+
+                <Stack.Screen
                     options={{
                         headerStyle: {
                             backgroundColor: activeColors.primary,
@@ -181,4 +197,3 @@ const AppStack = () => {
 }
 
 export default AppStack;
-
