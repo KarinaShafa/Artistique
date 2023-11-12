@@ -1,3 +1,4 @@
+// import statements
 import {
     Box,
     Text,
@@ -19,12 +20,15 @@ import {
   import { useNavigation } from "@react-navigation/native";
   import { useState } from "react";
   
+  // functional component menggunakan arrow function
   const LoginScreen = () => {
+    // state management menggunakan hook
     const navigation = useNavigation();
     const [showPassword, setShowPassword] = useState(false);
     const [emailOrUsername, setEmailOrUsername] = useState("");
     const [password, setPassword] = useState("");
   
+    // evet handlers
     const handleDismissKeyboard = () => {
       Keyboard.dismiss();
     };
@@ -41,7 +45,7 @@ import {
   
       }
     };
-  
+  // JSX Structure
     return (
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
         <Box flex={1}>
