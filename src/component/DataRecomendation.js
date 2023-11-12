@@ -1,18 +1,18 @@
 const DataRecomendation = [
     {
       id: 10,
-          rilis: '7 November 2022',
-          image: require("../image/Emina.jpg"),
-          judul: "Emina Cheeklit Pressed Blush On",
-          deskripsi:
-              "Blush yang menjadi primadona untuk banyak kalangan",
-          content: `
-          Salah satu blush yang menjadi primadona untuk banyak kalangan adalah milik Emina, yaitu Cheeklit Pressed Blush On. 
-          Packagingnya juga nggak terlalu heboh dan memiliki bentuk yang cukup compact. Jadi, banyak orang yang menggemari blush ini 
-          karena mudah untuk dimasukkan ke dalam pouch makeup. Lalu, kalau kamu menginginkan hasil pipi merona yang tampak matte, 
-          kamu bisa jadikan blush ini produk go to makeup kamu! Salah satu shade yang menjadi favorit banyak orang adalah 
-          Marshmallow Lady dan shade ini juga berhasil membawa Cheeklit Pressed Blush On memenangkan Female Daily Best of Beauty Awards, lho!
-          `,
+      rilis: '7 November 2022',
+      image: require("../image/Emina.jpg"),
+      judul: "Emina Cheeklit Pressed Blush On",
+      deskripsi:
+          "Blush yang menjadi primadona untuk banyak kalangan",
+      content: `
+      Salah satu blush yang menjadi primadona untuk banyak kalangan adalah milik Emina, yaitu Cheeklit Pressed Blush On. 
+      Packagingnya juga nggak terlalu heboh dan memiliki bentuk yang cukup compact. Jadi, banyak orang yang menggemari blush ini 
+      karena mudah untuk dimasukkan ke dalam pouch makeup. Lalu, kalau kamu menginginkan hasil pipi merona yang tampak matte, 
+      kamu bisa jadikan blush ini produk go to makeup kamu! Salah satu shade yang menjadi favorit banyak orang adalah 
+      Marshmallow Lady dan shade ini juga berhasil membawa Cheeklit Pressed Blush On memenangkan Female Daily Best of Beauty Awards, lho!
+      `,
     },
     {
       id: 11,
