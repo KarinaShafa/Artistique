@@ -11,9 +11,6 @@ import {
   Pressable,
 } from "native-base";
 import { TouchableOpacity, ImageBackground } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
-// import LinearGradient from "expo-linear-gradient";
-
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ScheduleBooked from "../component/ScheduleBooked";
@@ -22,7 +19,7 @@ import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
 import { useNavigation } from "@react-navigation/native";
 import DataArticles from "../component/DataArticle";
-import DataRecomendation from "../component/DataRecomendation";
+import RecomendationData from "../component/DataRecomendation";
 
 const Home = () => {
   // const theme = { mode: "dark" };
@@ -31,9 +28,10 @@ const Home = () => {
 
   const navigation = useNavigation();
   const DataArticle = DataArticles;
-  const DataRecomendation = DataRecomendation;
+  const DataRecomendation = RecomendationData;
 
-  const [dataView, setDataView] = useState(DataArticle);
+  const [dataArticleView, setDataArticleView] = useState(DataArticle);
+  const [dataRecomendationView, setDataRecomendationView] = useState(DataRecomendation);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState([
     { categoryName: "Article" },
@@ -45,17 +43,18 @@ const Home = () => {
   const categoryHandler = (props) => {
     if (props === "Search MUA") {
       navigation.navigate("MUA");
-    } 
-    else if (props === "QnA") {
+    } else if (props === "QnA") {
       navigation.navigate("Message");
-    } 
-    else if (props === "Article") {
-      setDataView(DataArticle);
-    } 
-    else if (props === "Recomendation") {
-      setDataView(DataRecomendation);
+    } else if (props === "Article") {
+      setDataArticleView(DataArticle);
+      setDataRecomendationView([]); // Reset dataRecomendationView saat memilih kategori Article
+    } else if (props === "Recomendation") {
+      setDataRecomendationView(DataRecomendation);
+      setDataArticleView([]); // Reset dataArticleView saat memilih kategori Recomendation
     }
   };
+  
+
 
   return (
     <SafeAreaView flex={1}>
@@ -118,7 +117,7 @@ const Home = () => {
 
         <Box>
           <FlatList
-            data={dataView}
+            data={dataArticleView}
             mb={5}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -170,33 +169,101 @@ const Home = () => {
                       alt="MUA"
                     />
                   </Box>
-                    <Text
-                    fontWeight={"bold"}
+                  <Text
+                    fontWeight="bold"
                     fontSize={18}
                     mx={2.5}
                     numberOfLines={2}
                     mt={1.5}
-                    >
-                      {item.judul.split(" ").map((word, index, array) => (
-                        <React.Fragment key={index}>
-                          {word} {index === array.length - 1 ? null : " "}
-                          {index !== 0 && (index + 1) % 5 === 0 ? "\n" : null}
-                        </React.Fragment>
-                      ))}
-                    </Text>
-                    <Text mx={2.5} numberOfLines={2}>
-                      {item.deskripsi.split(" ").map((word, index, array) => (
-                        <React.Fragment key={index}>
-                          {word} {index === array.length - 1 ? null : " "}
-                          {index !== 0 && (index + 1) % 5 === 0 ? "\n" : null}
-                        </React.Fragment>
-                      ))}
-                    </Text>
+                  >
+                    {item.judul}
+                  </Text>
+                  <Text mx={2.5} numberOfLines={2}>
+                    {item.deskripsi}
+                  </Text>
                 </Box>
               </TouchableOpacity>
             )}
           />
         </Box>
+
+        {/* FlatList for Recomendation */}
+          <Box>
+            <FlatList
+              data={dataRecomendationView}
+              mb={5}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={{
+                    marginRight: 10,
+                    backgroundColor: "#FFFFFF",
+                    borderRadius: 10,
+                    elevation: 3,
+                    marginBottom: 10,
+                    marginTop: 10,
+                    paddingBottom: 20,
+                  }}
+                  onPress={() =>
+                    navigation.navigate("DetailRecomendation", {
+                      image: item.image,
+                      title: item.judul,
+                      content: item.content,
+                    })
+                  }
+                >
+                  <Box
+                    h={200}
+                    mb={3}
+                    roundedTopRight={10}
+                    roundedTopLeft={10}
+                  >
+                    <ImageBackground
+                      source={item.image}
+                      style={{
+                        flex: 1,
+                        borderTopRightRadius: 10,
+                        borderTopLeftRadius: 10,
+                      }}
+                      imageStyle={{
+                        borderTopRightRadius: 10,
+                        borderTopLeftRadius: 10,
+                      }}
+                    />
+                  </Box>
+
+                  <Box flexDirection={"row"}>
+                    <Box>
+                      <Image
+                        source={item.image}
+                        w={10}
+                        h={10}
+                        rounded={20}
+                        borderColor={"white"}
+                        borderWidth={2}
+                        ml={2.5}
+                        mt={1.5}
+                        alt="MUA"
+                      />
+                    </Box>
+                    <Text
+                      fontWeight="bold"
+                      fontSize={18}
+                      mx={2.5}
+                      numberOfLines={2}
+                      mt={1.5}
+                    >
+                      {item.judul}
+                    </Text>
+                    <Text mx={2.5} numberOfLines={2}>
+                      {item.deskripsi}
+                    </Text>
+                  </Box>
+                </TouchableOpacity>
+              )}
+            />
+          </Box>
       </ScrollView>
     </SafeAreaView>
   );
