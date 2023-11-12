@@ -25,12 +25,6 @@ const Data = [
     id: "1",
     userName: "Clara Ayu Sheila",
     userImg: require("../../assets/Chat/MUA1.jpg"),
-    // rating: (
-    //   <>
-    //     <FontAwesome id="1" name="star" color="purple" size={15} />
-    //     <Text>4.5</Text>
-    //   </>
-    // ),
     star: <FontAwesome name="star" color="purple" size={12} />,
     text: '4.5',
     specialty: "Make Up Graduation, Wedding",
@@ -40,12 +34,6 @@ const Data = [
     id: "2",
     userName: "Natashalief",
     userImg: require("../../assets/Chat/MUA2.jpg"),
-    // rating: (
-    //   <>
-    //     <FontAwesome id="2" name="star" color="purple" size={15} />
-    //     <Text>4.6</Text>
-    //   </>
-    // ),
     star: <FontAwesome name="star" color="purple" size={12}/>,
     text: '4.6',
     specialty: "Make Up Graduation",
@@ -55,12 +43,6 @@ const Data = [
     id: "3",
     userName: "Hilga Doui",
     userImg: require("../../assets/Chat/MUA3.jpg"),
-    // rating: (
-    //   <>
-    //     <FontAwesome id="3" name="star" color="purple" size={15} />
-    //     <Text>4.9</Text>
-    //   </>
-    // ),
     star: <FontAwesome name="star" color="purple" size={12} />,
     text: '4.9',
     specialty: "Bold Make Up, Wedding",
@@ -70,12 +52,6 @@ const Data = [
     id: "4",
     userName: "Fauziah Hanum",
     userImg: require("../../assets/Chat/MUA4.jpg"),
-    // rating: (
-    //   <>
-    //     <FontAwesome id="4" name="star" color="purple" size={15} />
-    //     <Text>5</Text>
-    //   </>
-    // ),
     star: <FontAwesome name="star" color="purple" size={12} />,
     text: '5',
     specialty: "Korean Make Up",
@@ -85,12 +61,6 @@ const Data = [
     id: "5",
     userName: "Ochi Pramita",
     userImg: require("../../assets/Chat/MUA5.jpg"),
-    // rating: (
-    //   <>
-    //     <FontAwesome id="5" name="star" color="purple" size={15} />
-    //     <Text>4.8</Text>
-    //   </>
-    // ),
     star: <FontAwesome name="star" color="purple" size={12} />,
     text: '4.8',
     specialty: "Thailand Make Up",
@@ -196,7 +166,6 @@ const MUA = () => {
                                     MUAData: {
                                       userName: item.userName,
                                       userImg: item.userImg,
-                                      // star: item.star,
                                       text: item.text,
                                       specialty: item.specialty,                            
                                       exp: item.exp,

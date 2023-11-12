@@ -127,7 +127,7 @@ const Home = () => {
                   marginRight: 10,
                   backgroundColor: "#FFFFFF",
                   borderRadius: 10,
-                  elevation: 3,
+                  elevation: 3, //shadow
                   marginBottom: 10,
                   marginTop: 10,
                   paddingBottom: 20,
@@ -173,7 +173,8 @@ const Home = () => {
                     fontWeight="bold"
                     fontSize={18}
                     mx={2.5}
-                    numberOfLines={2}
+                    // untuk memberikan batas panjang teks, jika 1 maka hanya sampai 1 kalimat
+                    numberOfLines={1}
                     mt={1.5}
                   >
                     {item.judul}
@@ -247,18 +248,21 @@ const Home = () => {
                         alt="MUA"
                       />
                     </Box>
-                    <Text
-                      fontWeight="bold"
-                      fontSize={18}
-                      mx={2.5}
-                      numberOfLines={2}
-                      mt={1.5}
-                    >
-                      {item.judul}
-                    </Text>
-                    <Text mx={2.5} numberOfLines={2}>
-                      {item.deskripsi}
-                    </Text>
+                    <Box>
+                      <Text
+                        fontWeight="bold"
+                        fontSize={18}
+                        mx={2.5}
+                        // untuk memberikan batas panjang teks, jika 1 maka hanya sampai 1 kalimat
+                        numberOfLines={1}
+                        mt={1.5}
+                      >
+                        {item.judul}
+                      </Text>
+                      <Text mx={2.5} numberOfLines={2}>
+                        {item.deskripsi}
+                      </Text>
+                    </Box>
                   </Box>
                 </TouchableOpacity>
               )}

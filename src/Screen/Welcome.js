@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, SafeAreaView, TouchableOpacity } from "react-native";
-// import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Box, Text, Center, HStack, Image } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
@@ -8,8 +7,6 @@ import { useNavigation } from "@react-navigation/native";
 const WelcomeScreen = () => {
 	
 	const navigation = useNavigation();
-	// const { width, height } = Dimensions.get('window');
-
 	const [windowDimensions, setWindowDimensions] = useState(Dimensions.get('window'));
 
   useEffect(() => {
@@ -17,17 +14,18 @@ const WelcomeScreen = () => {
       setWindowDimensions(Dimensions.get('window'));
     };
 
-    // Tambahkan event listener untuk memantau perubahan dimensi layar
+    // Event listener untuk memantau perubahan dimensi layar
     Dimensions.addEventListener('change', updateDimensions);
 
     return () => {
-      // Hapus event listener saat komponen unmount
-      // Dimensions.removeEventListener('change', updateDimensions);
+      // Hapus event listener saat komponen unmount 
+      Dimensions.removeEventListener('change', updateDimensions);
     };
-  }, []);
+  }, []); //menandakan useEffect hanya dijalankan sekali setelah komponen dipasang dan di-unmount ketika komponen tersebut dihapus.
 
   return (
     <SafeAreaView>
+      {/* Komponen Image dari NativeBase untuk menampilkan gambar */}
       <Image
         source={require("../../assets/images/welcome.png")}
         alt="Welcome Image"
@@ -38,6 +36,7 @@ const WelcomeScreen = () => {
 				style={{ width: windowDimensions.width * 0.8, height: windowDimensions.height * 0.4 }}
       />
       <Center>
+        {/* Komponen Text dari NativeBase untuk menampilkan teks */}
         <Text
 					fontWeight="500"
           textAlign="center"
@@ -58,6 +57,7 @@ const WelcomeScreen = () => {
           Temukan MUA terbaik versimu!
         </Text>
       </Center>
+      {/* Komponen HStack dari NativeBase untuk menyusun komponen secara horizontal */}
       <HStack
         space={6}
         alignItems="center"
@@ -65,6 +65,8 @@ const WelcomeScreen = () => {
         mt={4}
         m={10}
       >
+        
+        {/* Komponen TouchableOpacity dari React Native untuk membuat tombol tekan */}
         <TouchableOpacity
           onPress={() => navigation.replace("Login")}
           style={{
