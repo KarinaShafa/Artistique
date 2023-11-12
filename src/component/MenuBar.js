@@ -8,12 +8,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import colors from "./theme";
 import { ThemeContext } from "./themeContext";
-// import ProfileScreen from "../Screen/Profile";
 import HomeScreen from "../Screen/Home";
 import AppointmentScreen from "../Screen/Booked";
 import PesanScreen from "../Screen/Chat";
 import ProfileScreen from "../Screen/Profile/ProfileScreen";
-import MyProfileScreen from "../Screen/Profile/Account/MyProfile";
 import MUA from "../Screen/MUA";
 
 const Tab = createBottomTabNavigator();

@@ -14,7 +14,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
 
 
-
 const RoomChatScreen = () => {
   // const theme = { mode: "dark" };
   const { theme, updateTheme } = useContext(ThemeContext);
@@ -144,7 +143,7 @@ const RoomChatScreen = () => {
 
   return (
     
-      <Box flex={1}>
+      <Box flex={1} backgroundColor={"#fff"}>
         <GiftedChat flex={1}
           messages={sortedMessages}
           onSend={(messages) => onSend(messages)}
@@ -163,7 +162,6 @@ const RoomChatScreen = () => {
           }}
           renderInputToolbar={renderInputToolbar}
           renderTime={renderTime}
-          // keyboardVerticalOffset={80}
         />
       </Box>
     

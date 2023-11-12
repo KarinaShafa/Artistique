@@ -11,8 +11,11 @@ import {
 import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/native";
+
 
 const MUADetails = () => {
+  const navigation = useNavigation();
 
   const route = useRoute();
   //   const initialName = route.params ? route.params.userName : "";
@@ -89,7 +92,13 @@ const MUADetails = () => {
           <Center>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Message");
+              // dialihkan ke halama roomchat
+              navigation.navigate("RoomChat", {
+                userName: userName,
+                messageText: "Welcome to Artistique", 
+                userImg: userImg,
+                
+              });
             }}
             style={{
               width: "85%",
