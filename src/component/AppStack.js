@@ -19,6 +19,7 @@ import HistoryScreen from "../Screen/Profile/Content/History";
 import BookedScreen from "../Screen/Booked"; 
 import BookedDetail from "../Screen/BookedDetail";
 import ArticleDetail from "../Screen/ArticleDetail";
+import PesanScreen from "../Screen/Chat";
 
 
 const Stack = createStackNavigator();
@@ -157,6 +158,15 @@ const AppStack = () => {
                     component={BookedDetail}
                     options={{
                         headerShown: true,
+                        headerTitle: "Booked Detail",
+                        headerTitleAlign: "center",
+                    }}
+                />
+                <Stack.Screen
+                    name="Chat"
+                    component={PesanScreen}
+                    options={{
+                        headerShown: false,
                         headerTitle: "Booked Detail",
                         headerTitleAlign: "center",
                     }}

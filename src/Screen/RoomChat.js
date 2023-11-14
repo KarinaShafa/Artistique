@@ -45,7 +45,7 @@ const RoomChatScreen = () => {
         avatar: initialUserImg,
       },
     },
-    
+
   ]);
 
   const onSend = useCallback((messages = []) => {
