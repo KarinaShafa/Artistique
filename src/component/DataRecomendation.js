@@ -1,7 +1,6 @@
 const DataRecomendation = [
     {
       id: 10,
-      rilis: '7 November 2022',
       image: require("../image/Emina.jpg"),
       judul: "Emina Cheeklit Pressed Blush On",
       deskripsi:
@@ -16,7 +15,6 @@ const DataRecomendation = [
     },
     {
       id: 11,
-          rilis: '10 November 2021',
           image: require("../image/BLPpowerLinen.jpeg"),
           judul: "BLP Power Liner",
           deskripsi:
@@ -32,7 +30,6 @@ const DataRecomendation = [
     },
     {
       id: 12,
-          rilis: '6 Maret 2023',
           image: require("../image/wardah.png"),
           judul: "Wardah Colorfit Cream Blush",
           deskripsi:

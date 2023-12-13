@@ -1,11 +1,10 @@
 const DataArticles = [
 	{
 		id: 1,
-		rilis: 'Rabu, 10 Oktober 2022',
 		image: require("../image/ARTICLE2.jpg"),
 		judul: "Buat Kulit Glowing dan Sehat!",
 		deskripsi:
-			"Ini dia tren Skincare Skinimalism yang bisa dicoba!",
+			"Ini dia tren Skincare Skinimalism",
 		content: `
 		Kamu pernah berada di fase memakai skincare sampai 10 steps seperti para cewek Korea, nggak?
 		Kalau iya, sepertinya kamu sudah mulai bisa beralih ke aliran lainnya yaitu skinimalism! 
@@ -34,7 +33,6 @@ const DataArticles = [
 	},
 	{
 		id: 2,
-		rilis: '2 Januari 2022',
 		image: require("../image/ARTICLE1.png"),
 		judul: "Tampil Playful dengan 5 Eyeliner Berwarna",
 		deskripsi:
@@ -89,7 +87,6 @@ const DataArticles = [
 	},
 	{
 		id: 3,
-		rilis: '18 Juli 2023',
 		image: require("../image/ARTICLE3.png"),
 		judul:
 			"Membuat Pipi Merona Alami dan Fresh",

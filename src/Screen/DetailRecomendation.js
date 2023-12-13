@@ -33,7 +33,7 @@ const RecomendationDetail = () => {
 
       {/* Konten */}
       <Box p={4}>
-        <Text textAlign="justify">{initialContent}</Text>
+        <Text>{initialContent}</Text>
       </Box>
     </ScrollView>
   );
