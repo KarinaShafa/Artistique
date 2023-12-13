@@ -11,7 +11,7 @@ const WelcomeScreen = () => {
 
   useEffect(() => {
     const updateDimensions = () => {
-      setWindowDimensions(Dimensions.get('window'));
+      setWindowDimensions(Dimensions.get('window')); //memberi dimensi awal layar perangkat pada saat aplikasi dimulai.
     };
 
     // Event listener untuk memantau perubahan dimensi layar
@@ -29,11 +29,10 @@ const WelcomeScreen = () => {
       <Image
         source={require("../../assets/images/welcome.png")}
         alt="Welcome Image"
-        // size={64}
         mt={12}
         m={10}
-        resizeMode="contain"
-				style={{ width: windowDimensions.width * 0.8, height: windowDimensions.height * 0.4 }}
+        resizeMode="contain" //mengubah ukuran gambar agar dapat ditampilkan semua
+				style={{ width: windowDimensions.width * 0.8, height: windowDimensions.height * 0.4 }} //menyesuaikan dengan ukuran layar
       />
       <Center>
         {/* Komponen Text dari NativeBase untuk menampilkan teks */}
@@ -49,7 +48,6 @@ const WelcomeScreen = () => {
         <Text
           fontSize={24}
           color="black"
-          //   fontFamily="poppins-regular"
           textAlign="center"
           mt={1}
           p={6}
@@ -66,7 +64,7 @@ const WelcomeScreen = () => {
         m={10}
       >
         
-        {/* Komponen TouchableOpacity dari React Native untuk membuat tombol tekan */}
+        {/* Komponen TouchableOpacity dari React Native untuk membuat button */}
         <TouchableOpacity
           onPress={() => navigation.replace("Login")}
           style={{
@@ -86,7 +84,6 @@ const WelcomeScreen = () => {
           }}
         >
           <Text
-            // fontFamily="poppins-bold"
             color="white"
             fontSize="xl"
             textAlign="center"
@@ -105,7 +102,6 @@ const WelcomeScreen = () => {
           }}
         >
           <Text
-            // fontFamily="poppins-bold"
             color="black"
             fontSize="xl"
             textAlign="center"

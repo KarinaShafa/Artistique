@@ -78,16 +78,17 @@ const MUA = () => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        Keyboard.dismiss();
+        Keyboard.dismiss(); //menghilangkan keyboard jika user menekan layar di luar keyboard
       }}
     >
       <Box flex={1}>
         <Box flex={1} pl={5} pr={5} backgroundColor={activeColors.primary}>
           <Center>
             <Box mt={40}>
-              <HStack alignItems="center" space={2} p={2} rounded="md">
+              {/* search */}
+              <HStack alignItems="center" space={2} p={2} rounded="md"> 
                 <Input
-                  placeholder="Search Specialist"
+                  placeholder="Search MUA"
                   color={activeColors.tint}
                   placeholderTextColor={activeColors.tint}
                   size="lg"
