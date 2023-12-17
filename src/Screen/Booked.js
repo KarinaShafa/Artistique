@@ -8,6 +8,7 @@ import {
   Text,
   HStack,
   Icon,
+  Input,
 } from "native-base";
 import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
@@ -21,7 +22,8 @@ import {
   MenuProvider,
   MenuTrigger,
 } from "react-native-popup-menu";
-import BookedDetail from "./BookedDetail"; 
+import BookedDetail from "./BookedDetail";
+import Header from "../component/Header"; 
 
 const Data = [
   {
@@ -64,22 +66,23 @@ const Data = [
 const BookedScreen = () => {
   const { theme, updateTheme } = useContext(ThemeContext);
   const activeColors = colors[theme.mode];
+  const [search, setSearch] = useState("");
   const navigation = useNavigation();
-  const [selectedMakeupArtist, setSelectedMakeupArtist] = useState(null);
+  const [selectedMakeupArtist, setSelectedMakeupArtist] = useState(null); //mendapatkan informasi MUA yang nantinya akan dipilih user
 
-  const handleBookNow = (customerName, selectedDate, selectedMakeupType) => {
-    if (customerName && selectedDate && selectedMakeupType) {
-      console.log("Booking details:", {
-        makeupArtist: selectedMakeupArtist.userName,
-        date: selectedDate,
-        makeupType: selectedMakeupType,
-        customerName,
-      });
-      setSelectedMakeupArtist(null);
-    } else {
-      alert("Please fill in all details.");
-    }
-  };
+  // const handleBookNow = (customerName, selectedDate, selectedMakeupType) => {
+  //   if (customerName && selectedDate && selectedMakeupType) {
+  //     console.log("Booking details:", {
+  //       makeupArtist: selectedMakeupArtist.userName,
+  //       date: selectedDate,
+  //       makeupType: selectedMakeupType,
+  //       customerName,
+  //     });
+  //     setSelectedMakeupArtist(null);
+  //   } else {
+  //     alert("Please fill in all details.");
+  //   }
+  // };
 
   return (
     <MenuProvider
@@ -94,13 +97,26 @@ const BookedScreen = () => {
         <Box flex={1} backgroundColor={activeColors.primary}>
           <Center>
             <Box mt={4}>
+              <HStack alignItems="center" space={2} p={2} mt={10} rounded="md"> 
+                  <Input
+                    placeholder="Search MUA"
+                    color={activeColors.tint}
+                    placeholderTextColor={activeColors.tint}
+                    size="lg"
+                    w={"87%"}
+                    rounded={12}
+                  />
+                  <Box backgroundColor={"#A01437"} p={2} rounded={6}>
+                    <Icon as={Ionicons} name="search" size={6} color={"white"} />
+                  </Box>
+              </HStack>
               <FlatList
                 data={Data}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     style={{ width: "100%" }}
-                    onPress={() => setSelectedMakeupArtist(item)}
+                    onPress={() => navigation.navigate(BookedDetail)} //menampilkan data yang terkait
                   >
                     <Box
                       justifyContent="space-between"
@@ -185,12 +201,12 @@ const BookedScreen = () => {
           </Center>
         </Box>
       </Box>
-      {selectedMakeupArtist && (
+      {/* {selectedMakeupArtist && (
         <BookedDetail
           makeupArtist={selectedMakeupArtist} //objek MUA yang telah dipilih
           onClose={() => setSelectedMakeupArtist(null)} 
         />
-      )}
+      )} */}
     </MenuProvider>
   );
 };

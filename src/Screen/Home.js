@@ -22,7 +22,7 @@ import DataArticles from "../component/DataArticle";
 import RecomendationData from "../component/DataRecomendation";
 
 const Home = () => {
-  // const theme = { mode: "dark" };
+
   const { theme } = useContext(ThemeContext);
   let activeColors = colors[theme.mode];
 
@@ -32,7 +32,7 @@ const Home = () => {
 
   const [dataArticleView, setDataArticleView] = useState(DataArticle);
   const [dataRecomendationView, setDataRecomendationView] = useState(DataRecomendation);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(""); 
   const [category, setCategory] = useState([
     { categoryName: "Article" },
     { categoryName: "QnA" },
@@ -41,7 +41,7 @@ const Home = () => {
   ]);
 
   const categoryHandler = (props) => {
-    if (props === "Search MUA") {
+    if (props === "Search MUA") {     //kondisi
       navigation.navigate("MUA");
     } else if (props === "QnA") {
       navigation.navigate("Message");
@@ -57,13 +57,13 @@ const Home = () => {
 
 
   return (
-    <SafeAreaView flex={1}>
+    <Box flex={1}>
       <StatusBar
-        style={theme.mode === "dark" ? "light" : "dark"}
+        style={theme.mode === "dark" ? "light" : "dark"} //menentukan tema 
         backgroundColor={activeColors.primary}
       />
       <ScrollView
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false} //mengontrol tanda gulir
         flex={1}
         mx={0}
         paddingX={5}
@@ -173,8 +173,7 @@ const Home = () => {
                     fontWeight="bold"
                     fontSize={18}
                     mx={2.5}
-                    // untuk memberikan batas panjang teks, jika 1 maka hanya sampai 1 kalimat
-                    numberOfLines={1}
+                    numberOfLines={1} // memberikan batas panjang teks, jika 1 maka hanya sampai 1 kalimat
                     mt={1.5}
                   >
                     {item.judul}
@@ -253,8 +252,7 @@ const Home = () => {
                         fontWeight="bold"
                         fontSize={18}
                         mx={2.5}
-                        // untuk memberikan batas panjang teks, jika 1 maka hanya sampai 1 kalimat
-                        numberOfLines={1}
+                        numberOfLines={1} // memberikan batas panjang teks, jika 1 maka hanya sampai 1 kalimat
                         mt={1.5}
                       >
                         {item.judul}
@@ -269,7 +267,7 @@ const Home = () => {
             />
           </Box>
       </ScrollView>
-    </SafeAreaView>
+    </Box>
   );
 };
 

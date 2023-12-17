@@ -4,7 +4,6 @@ import { ThemeContext } from "../component/themeContext";
 import colors from "../component/theme";
 
 const BookedDetail = () => {
-  // const theme = { mode: "dark" };
   const { theme, updateTheme } = useContext(ThemeContext);
   let activeColors = colors[theme.mode];
 

@@ -19,9 +19,9 @@ const MUADetails = () => {
 
   const route = useRoute();
 
-  const initialData = route.params ? route.params.MUAData : null;
+  const initialData = route.params ? route.params.MUAData : null; //mengecek MUAData ada atau tidak
 
-  // Kemudian, Anda dapat mengakses data seperti ini:
+  // dapat mengakses data seperti ini:
   const userName = initialData.userName;
   const userImg = initialData.userImg;
   const text = initialData.text;
@@ -84,7 +84,7 @@ const MUADetails = () => {
           <Center>
           <TouchableOpacity
             onPress={() => {
-              // dialihkan ke halama roomchat
+              // dialihkan ke halaman roomchat
               navigation.navigate("RoomChat", {
                 userName: userName,
                 messageText: "Welcome to Artistique", 

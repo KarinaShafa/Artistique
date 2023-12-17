@@ -14,6 +14,7 @@ import AppointmentScreen from "../Screen/Booked";
 import PesanScreen from "../Screen/Chat";
 import ProfileScreen from "../Screen/Profile/ProfileScreen";
 import MUA from "../Screen/MUA";
+import BookedScreen from "../Screen/Booked";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -132,8 +133,8 @@ const MenuBar = () => {
         />
 
         <Tab.Screen
-          name="Appointment"
-          component={AppointmentScreen}
+          name="Booked"
+          component={BookedScreen}
           options={({ navigation }) => ({
             headerShown: false,
             tabBarLabel: "",
@@ -146,7 +147,7 @@ const MenuBar = () => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                onPress={() => navigation.navigate("Appointment")}
+                onPress={() => navigation.navigate("Booked")}
               >
                 <Icon
                   name="calendar"

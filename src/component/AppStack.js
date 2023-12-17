@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-
-import { Icon, NativeBaseProvider } from "native-base";
+import { Icon, NativeBaseProvider, Box } from "native-base";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Text, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -44,7 +43,6 @@ const AppStack = () => {
                     initialParams={{
                         userName: "",
                         userImg: null,
-                        // star: "",
                         text: "",
                         specialty: "",                        
                         exp: "",
@@ -111,7 +109,7 @@ const AppStack = () => {
                             headerTitle: "Article Detail", // Menggunakan judul dari parameter rute
                             headerTitleAlign: "center",
                         })}
-                            initialParams={{
+                            initialParams={{ //menetapkan nilai awal, menghindari undefined
                             image: null,
                             title: "",
                             content: "",
@@ -127,7 +125,7 @@ const AppStack = () => {
                             headerTitle: "Recomendation Detail", // Menggunakan judul dari parameter rute
                             headerTitleAlign: "center",
                         })}
-                            initialParams={{
+                            initialParams={{ //menetapkan nilai awal, menghindari undefined
                             image: null,
                             title: "",
                             content: "",
@@ -163,7 +161,7 @@ const AppStack = () => {
                     name="Booked"
                     component={BookedScreen}
                     options={{
-                        headerShown: true,
+                        headerShown: false,
                         headerTitle: "Booked",
                         headerTitleAlign: "center",
                     }}
@@ -173,8 +171,11 @@ const AppStack = () => {
                     name="BookedDetail"
                     component={BookedDetail}
                     options={{
-                        headerShown: true,
                         headerTitle: "Booked Detail",
+                        headerStyle: {
+                            backgroundColor: activeColors.primary,
+                        },
+                        headerTintColor: activeColors.tint,
                         headerTitleAlign: "center",
                     }}
                 />
