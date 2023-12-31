@@ -9,6 +9,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import colors from "./theme";
 import { ThemeContext } from "./themeContext";
 import HomeScreen from "../Screen/Home";
+// coba dihapus yang appoinmentscreen
 import AppointmentScreen from "../Screen/Booked";
 import PesanScreen from "../Screen/Chat";
 import ProfileScreen from "../Screen/Profile/ProfileScreen";
@@ -77,19 +78,18 @@ const MenuBar = () => {
                 />
                 <Text
                   fontSize={12}
-                  color={
-                    focused ? activeColors.iconFocus : activeColors.barIcon
-                  }
+                  style={{ color: focused ? activeColors.iconFocus : activeColors.barIcon }}
                 >
                   Home
                 </Text>
               </TouchableOpacity>
             ),
             tabBarStyle: {
-              backgroundColor: activeColors.barStyle, // Ganti 'your_color_here' dengan warna latar belakang yang Anda inginkan
+              backgroundColor: activeColors.barStyle, // Warna background menu bar
             },
           })}
         />
+        
 
         <Tab.Screen
           name="MUA"
@@ -117,9 +117,7 @@ const MenuBar = () => {
                 />
                 <Text
                   fontSize={12}
-                  color={
-                    focused ? activeColors.iconFocus : activeColors.barIcon
-                  }
+                  style={{ color: focused ? activeColors.iconFocus : activeColors.barIcon }}
                 >
                   MUA
                 </Text>
@@ -157,9 +155,7 @@ const MenuBar = () => {
                 />
                 <Text
                   fontSize={12}
-                  color={
-                    focused ? activeColors.iconFocus : activeColors.barIcon
-                  }
+                  style={{ color: focused ? activeColors.iconFocus : activeColors.barIcon }}
                 >
                   Booked
                 </Text>
@@ -200,9 +196,7 @@ const MenuBar = () => {
                 />
                 <Text
                   fontSize={12}
-                  color={
-                    focused ? activeColors.iconFocus : activeColors.barIcon
-                  }
+                  style={{ color: focused ? activeColors.iconFocus : activeColors.barIcon }}
                 >
                   Message
                 </Text>
@@ -240,9 +234,7 @@ const MenuBar = () => {
                 />
                 <Text
                   fontSize={12}
-                  color={
-                    focused ? activeColors.iconFocus : activeColors.barIcon
-                  }
+                  style={{ color: focused ? activeColors.iconFocus : activeColors.barIcon }}
                 >
                   Profile
                 </Text>
