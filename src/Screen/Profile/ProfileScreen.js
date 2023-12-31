@@ -78,13 +78,13 @@ const SECTIONS = [
     header: "Support",
     icon: "help-circle",
     items: [
-      {
-        id: "AddAccount",
-        icon: "users",
-        color: "#32c759",
-        label: "Add Account",
-        type: "link",
-      },
+      // {
+      //   id: "AddAccount",
+      //   icon: "users",
+      //   color: "#32c759",
+      //   label: "Add Account",
+      //   type: "link",
+      // },
       {
         id: "LogOut",
         icon: "log-out",
