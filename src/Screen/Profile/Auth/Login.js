@@ -15,10 +15,31 @@ import {
     Pressable,
     Keyboard,
     TouchableWithoutFeedback,
+    Alert,
   } from "react-native";
   import { Ionicons, MaterialIcons } from "@expo/vector-icons";
   import { useNavigation } from "@react-navigation/native";
   import { useState } from "react";
+  import { initializeApp } from "firebase/app";
+  import { firebaseConfig } from "../../../../firebase-config";
+  import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  } from "firebase/auth";
+  import {
+  getDocs,
+  collection,
+  query,
+  where,
+  getFirestore,
+  } from "firebase/firestore";
+  import AsyncStorage from "@react-native-async-storage/async-storage";
+  import { Base64 } from "js-base64"; 
+
+  const DB = initializeApp(firebaseConfig);
+  const auth = getAuth(DB);
+  const firestore = getFirestore(DB);
   
   // functional component menggunakan arrow function
   const LoginScreen = () => {
@@ -28,23 +49,120 @@ import {
     const [emailOrUsername, setEmailOrUsername] = useState("");
     const [password, setPassword] = useState("");
   
-    // evet handlers
-    const handleDismissKeyboard = () => {
-      Keyboard.dismiss();
-    };
-  
-    const handleLogin = () => {
-      // Periksa apakah email/username dan password sesuai
-      if (emailOrUsername === "User" && password === "User123") {
-        // Jika sesuai, navigasikan ke halaman Home
-        navigation.replace("Tabs");
-  
-        setEmailOrUsername("")
-        setPassword("")
-      } else {
-  
+    const encrypt = (text, shift) => {
+      let result = '';
+      for (let i = 0; i < text.length; i++) {
+        let char = text[i];
+        if (char.match(/[a-z]/i)) {
+          let code = text.charCodeAt(i);
+          if (code >= 65 && code <= 90) {
+            char = String.fromCharCode(((code - 65 + shift) % 26) + 65);
+          } else if (code >= 97 && code <= 122) {
+            char = String.fromCharCode(((code - 97 + shift) % 26) + 97);
+          }
+        }
+        result += char;
       }
+      return result;
     };
+
+    // Fungsi Dekripsi untuk metode penggeseran karakter (caesar cipher)
+  const decrypt = (text, shift) => {
+    return encrypt(text, (26 - shift) % 26);
+  };
+
+  const compare = (text, encryptedText, shift) => {
+    const decryptedText = decrypt(encryptedText, shift);
+    return text === decryptedText;
+  };
+
+  const handleSignIn = async () => {
+    try {
+      // Dapatkan data pengguna dari Firestore
+      const usersCollection = collection(firestore, "users");
+      const queryByEmail = query(
+        usersCollection,
+        where("email", "==", emailOrUsername)
+      );
+      const snapshotByEmail = await getDocs(queryByEmail);
+
+      // Query kedua untuk mencari berdasarkan nama
+      const queryByName = query(
+        usersCollection,
+        where("name", "==", emailOrUsername)
+      );
+      const snapshotByName = await getDocs(queryByName);
+
+      // Gabungkan hasil kedua query
+      const combinedSnapshot = snapshotByEmail.docs.concat(snapshotByName.docs);
+
+      // Periksa apakah ada hasil dari kombinasi query
+      if (combinedSnapshot.length > 0) {
+        // Lakukan verifikasi data, misalnya verifikasi password
+        combinedSnapshot.forEach(async (doc) => {
+          const userData = doc.data();
+          const hashedPassword = userData.password;
+
+          try {
+
+            console.log("From DB: ",hashedPassword);
+            const Decodetext = Base64.decode(hashedPassword);
+            console.log("After Decode: ",Decodetext);
+            const passwordMatch = compare(password, Decodetext, 3);
+
+            if (passwordMatch) {
+              // Login berhasil
+              const credentials = {
+                id: userData.id,
+                email: userData.email,
+                name: userData.name,
+                namaLengkap: userData.namaLengkap,
+                password: userData.password,
+                phone: userData.phone,
+                jenisKelamin: userData.jenisKelamin,
+                tglLahir: userData.tglLahir,
+                alamat: userData.alamat,
+                cities: userData.cities,
+                uid: doc.id,
+                loginTime: new Date().getTime(),
+              };
+
+              AsyncStorage.setItem("credentials", JSON.stringify(credentials))
+                .then(() => {
+                  Alert.alert("Success", "Akun anda berhasil login");
+                  navigation.replace("Tabs");
+                })
+                .catch((error) => {
+                  console.log(error);
+                  Alert.alert("Error", "Gagal menyimpan kredensial");
+                });
+
+              return;
+            } else {
+              Alert.alert("Error", "Email/username atau password salah");
+            }
+          } catch (error) {
+            console.error(error);
+            Alert.alert(
+              "Error",
+              "Terjadi kesalahan saat membandingkan password"
+            );
+          }
+        });
+      } else {
+        // Jika tidak ditemukan email atau nama yang cocok
+        Alert.alert("Error", "Email/username/nama tidak ditemukan");
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Error", "Gagal login");
+    }
+  };
+
+  const handleDismissKeyboard = () => {
+    Keyboard.dismiss();
+  };
+
   // JSX Structure
     return (
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
@@ -69,8 +187,6 @@ import {
             <Spacer p="18" mt="5">
               <Stack space={4} w="100%" alignItems="center">
                 <Input
-                  value={emailOrUsername} // Nilai dari input email/username
-                  onChangeText={(text) => setEmailOrUsername(text)}
                   w={{
                     base: "95%",
                     md: "25%",
@@ -89,6 +205,10 @@ import {
                   backgroundColor={"#F3D2CB"}
                   borderWidth={0}
                   rounded={6}
+                  value={emailOrUsername}
+                  onChangeText={(emailOrUsername) =>
+                    setEmailOrUsername(emailOrUsername)
+                  }
                 />
   
                 <Input
@@ -151,7 +271,8 @@ import {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={handleLogin}
+            // onPress={() => handleLogin(emailOrUsername, password)}
+            onPress={() => handleSignIn()}
           >
             <Text
               color={"white"}
