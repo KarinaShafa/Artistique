@@ -28,7 +28,9 @@ const Data = [
     star: <FontAwesome name="star" color="purple" size={12} />,
     text: '4.5',
     specialty: "Make Up Graduation, Wedding",
-    exp: "15 years",
+    exp: "10 years",
+    about: "Clara Ayu Sheila adalah seorang makeup artist berbakat yang telah mengejar karirnya dalam industri kecantikan. Dengan fokus khusus pada makeup untuk kelulusan dan pernikahan, Clara Ayu Sheila berkomitmen untuk membuat momen spesial Anda terasa lebih istimewa dan berkesan.",
+    sosmed: "@makeupbycla @claraayusheila",
   },
   {
     id: "2",
@@ -37,7 +39,9 @@ const Data = [
     star: <FontAwesome name="star" color="purple" size={12}/>,
     text: '4.6',
     specialty: "Make Up Graduation",
-    exp: "12 years",
+    exp: "5 years",
+    about: "Natashalief, seorang MUA berpengalaman selama 12 tahun, adalah ahli tata rias yang mengkhususkan diri dalam makeup untuk acara wisuda. Dengan keahlian yang teruji dan portofolio yang kaya pengalaman, Natashalief mampu menciptakan tampilan makeup yang sesuai dengan gaya dan kepribadian setiap klien. Keberhasilannya tidak hanya tercermin dalam keterampilan seni rias yang tinggi, tetapi juga dalam kemampuannya untuk terus mengikuti tren terbaru dalam industri kecantikan. Dengan dedikasi yang kuat terhadap kepuasan pelanggan dan kualitas pelayanan, Natashalief menjadi pilihan yang luar biasa bagi mereka yang mencari MUA berpengalaman untuk menyempurnakan momen wisuda mereka dengan sentuhan kecantikan yang istimewa.",
+    sosmed: "@nathasalief",
   },
   {
     id: "3",
@@ -47,6 +51,8 @@ const Data = [
     text: '4.9',
     specialty: "Bold Make Up, Wedding",
     exp: "7 years",
+    about: "Hilga Doui, seorang MUA yang berpengalaman selama 7 tahun, membawa keahliannya dalam dunia tata rias dengan fokus utama pada dua bidang yang unik, yaitu makeup bold dan makeup untuk acara pernikahan. Dengan kepiawaiannya dalam menciptakan tampilan yang mencolok dan berani, Hilga Doui tidak hanya menunjukkan keahlian dalam menyelaraskan warna dan konsep makeup bold, tetapi juga memberikan sentuhan keanggunan yang sempurna untuk tata rias pernikahan. Pengalaman selama tujuh tahunnya tidak hanya melibatkan pengembangan keterampilan seni rias, tetapi juga mencerminkan komitmen Hilga Doui untuk terus mengikuti perkembangan terbaru dalam industri kecantikan, memberikan pelayanan terbaik kepada kliennya, dan menciptakan pengalaman tata rias yang tak terlupakan.",
+    sosmed: "@HilgaDoui",
   },
   {
     id: "4",
@@ -55,7 +61,9 @@ const Data = [
     star: <FontAwesome name="star" color="purple" size={12} />,
     text: '5',
     specialty: "Korean Make Up",
-    exp: "14 years",
+    exp: "6 years",
+    about: "Fauziah Hanum, seorang MUA berpengalaman selama 14 tahun, menghadirkan keahlian khususnya dalam menciptakan tampilan makeup dengan gaya Korea yang unik dan trendi. Dengan pengalaman yang luas, Fauziah tidak hanya menjadi ahli dalam menangkap estetika khas Korea, tetapi juga mampu menghadirkan sentuhan pribadi dan inovatif ke dalam setiap tata riasnya. Sebagai seorang profesional kecantikan yang berdedikasi, pengalaman panjangnya mencerminkan komitmennya terhadap pelayanan berkualitas tinggi dan pengetahuan yang mendalam tentang tren terbaru dalam dunia kecantikan Korea. Fauziah Hanum adalah pilihan yang luar biasa bagi mereka yang mencari MUA berpengalaman untuk menciptakan tampilan makeup Korea yang elegan dan menawan.",
+    sosmed: "@fauziaahanum",
   },
   {
     id: "5",
@@ -64,7 +72,9 @@ const Data = [
     star: <FontAwesome name="star" color="purple" size={12} />,
     text: '4.8',
     specialty: "Thailand Make Up",
-    exp: "12 years",
+    exp: "8 years",
+    about: "Ochi Pramita, seorang MUA dengan pengalaman selama 12 tahun, membawa keahlian dan keunikan dalam menciptakan tampilan makeup dengan sentuhan khas Thailand. Dengan fokus pada estetika dan tren kecantikan Thailand, Ochi Pramita tidak hanya menjadi ahli dalam menghadirkan keindahan tradisional Thailand ke dalam tata riasnya, tetapi juga memadukan elemen-elemen modern untuk menciptakan tampilan yang segar dan trendi. Pengalaman panjangnya mencerminkan komitmen Ochi Pramita terhadap pelayanan terbaik dan pemahaman yang mendalam tentang kebutuhan individu. Sebagai seorang profesional kecantikan yang berbakat dan berpengalaman, Ochi Pramita menjadi pilihan ideal bagi mereka yang mencari MUA untuk menciptakan tampilan makeup Thailand yang elegan dan memukau.",
+    sosmed: "@ochiipramita",
   },
 ];
 
@@ -106,7 +116,7 @@ const MUA = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                   <TouchableOpacity style={{ width: "100%" }}>
-                    <Box justifyContent={"space-between"}>
+                    <Box justifyContent={"center"}>
                       <Flex direction="row">
                         <Box pt={4} pb={4}>
                           <Image
@@ -171,6 +181,8 @@ const MUA = () => {
                                       specialty: item.specialty,                            
                                       exp: item.exp,
                                       reviews: item.reviews,
+                                      about: item.about,
+                                      sosmed: item.sosmed,
                                     },
                                   })
                                 }

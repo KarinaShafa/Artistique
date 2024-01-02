@@ -1,15 +1,5 @@
-import React, { useContext, useState } from "react";
-import {
-  Box,
-  Center,
-  FlatList,
-  Flex,
-  Image,
-  Text,
-  HStack,
-  Icon,
-  Input,
-} from "native-base";
+import React, { useContext } from "react";
+import { Box, Center, FlatList, Flex, Image, Text, HStack, Icon, Input } from "native-base";
 import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
 import { useNavigation } from "@react-navigation/native";
@@ -23,7 +13,6 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import BookedDetail from "./BookedDetail";
-import Header from "../component/Header"; 
 
 const Data = [
   {
@@ -31,14 +20,14 @@ const Data = [
     userName: "Clara Ayu Sheila",
     userImg: require("../../assets/Chat/MUA1.jpg"),
     specialty: "Makeup Graduation, Wedding",
-    exp: "15 years",
+    exp: "10 years",
   },
   {
     id: "2",
     userName: "Nathasalief",
     userImg: require("../../assets/Chat/MUA2.jpg"),
     specialty: "Makeup Graduation",
-    exp: "12 years",
+    exp: "5 years",
   },
   {
     id: "3",
@@ -52,37 +41,22 @@ const Data = [
     userName: "Fauziah Hanum",
     userImg: require("../../assets/Chat/MUA4.jpg"),
     specialty: "Korean Makeup",
-    exp: "14 years",
+    exp: "6 years",
   },
   {
     id: "5",
     userName: "Ochi Pramita",
     userImg: require("../../assets/Chat/MUA5.jpg"),
     specialty: "Thailand Makeup",
-    exp: "12 years",
+    exp: "8 years",
   },
 ];
 
 const BookedScreen = () => {
-  const { theme, updateTheme } = useContext(ThemeContext);
-  const activeColors = colors[theme.mode];
-  const [search, setSearch] = useState("");
-  const navigation = useNavigation();
-  const [selectedMakeupArtist, setSelectedMakeupArtist] = useState(null); //mendapatkan informasi MUA yang nantinya akan dipilih user
+  const { theme } = useContext(ThemeContext);
+  let activeColors = colors[theme.mode];
 
-  // const handleBookNow = (customerName, selectedDate, selectedMakeupType) => {
-  //   if (customerName && selectedDate && selectedMakeupType) {
-  //     console.log("Booking details:", {
-  //       makeupArtist: selectedMakeupArtist.userName,
-  //       date: selectedDate,
-  //       makeupType: selectedMakeupType,
-  //       customerName,
-  //     });
-  //     setSelectedMakeupArtist(null);
-  //   } else {
-  //     alert("Please fill in all details.");
-  //   }
-  // };
+  const navigation = useNavigation();
 
   return (
     <MenuProvider
@@ -97,18 +71,18 @@ const BookedScreen = () => {
         <Box flex={1} backgroundColor={activeColors.primary}>
           <Center>
             <Box mt={4}>
-              <HStack alignItems="center" space={2} p={2} mt={10} rounded="md"> 
-                  <Input
-                    placeholder="Search MUA"
-                    color={activeColors.tint}
-                    placeholderTextColor={activeColors.tint}
-                    size="lg"
-                    w={"87%"}
-                    rounded={12}
-                  />
-                  <Box backgroundColor={"#A01437"} p={2} rounded={6}>
-                    <Icon as={Ionicons} name="search" size={6} color={"white"} />
-                  </Box>
+              <HStack alignItems="center" space={2} p={2} mt={10} rounded="md">
+                <Input
+                  placeholder="Search MUA"
+                  color={activeColors.tint}
+                  placeholderTextColor={activeColors.tint}
+                  size="lg"
+                  w={"87%"}
+                  rounded={12}
+                />
+                <Box backgroundColor={"#A01437"} p={2} rounded={6}>
+                  <Icon as={Ionicons} name="search" size={6} color={"white"} />
+                </Box>
               </HStack>
               <FlatList
                 data={Data}
@@ -116,7 +90,7 @@ const BookedScreen = () => {
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     style={{ width: "100%" }}
-                    onPress={() => navigation.navigate(BookedDetail)} //menampilkan data yang terkait
+                    onPress={() => navigation.navigate("BookedDetail", item)} // Pass the makeup artist data as a parameter
                   >
                     <Box
                       justifyContent="space-between"
@@ -201,12 +175,6 @@ const BookedScreen = () => {
           </Center>
         </Box>
       </Box>
-      {/* {selectedMakeupArtist && (
-        <BookedDetail
-          makeupArtist={selectedMakeupArtist} //objek MUA yang telah dipilih
-          onClose={() => setSelectedMakeupArtist(null)} 
-        />
-      )} */}
     </MenuProvider>
   );
 };

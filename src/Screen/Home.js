@@ -12,7 +12,6 @@ import {
 } from "native-base";
 import { TouchableOpacity, ImageBackground } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
 import ScheduleBooked from "../component/ScheduleBooked";
 import Header from "../component/Header";
 import colors from "../component/theme";
@@ -169,18 +168,30 @@ const Home = () => {
                       alt="MUA"
                     />
                   </Box>
+                  <Box>
                   <Text
-                    fontWeight="bold"
+                    fontWeight={"bold"}
                     fontSize={18}
                     mx={2.5}
-                    numberOfLines={1} // memberikan batas panjang teks, jika 1 maka hanya sampai 1 kalimat
+                    numberOfLines={2}
                     mt={1.5}
                   >
-                    {item.judul}
+                    {item.judul.split(" ").map((word, index, array) => (
+                      <React.Fragment key={index}>
+                        {word} {index === array.length - 1 ? null : " "}
+                        {index !== 0 && (index + 1) % 5 === 0 ? "\n" : null}
+                      </React.Fragment>
+                    ))}
                   </Text>
-                  <Text mx={2.5} numberOfLines={2}>
-                    {item.deskripsi}
+                  <Text mx={2} numberOfLines={2}>
+                    {item.deskripsi.split(" ").map((word, index, array) => (
+                      <React.Fragment key={index}>
+                        {word} {index === array.length - 1 ? null : " "}
+                        {index !== 0 && (index + 1) % 5 === 0 ? "\n" : null}
+                      </React.Fragment>
+                    ))}
                   </Text>
+                  </Box>
                 </Box>
               </TouchableOpacity>
             )}
@@ -249,16 +260,26 @@ const Home = () => {
                     </Box>
                     <Box>
                       <Text
-                        fontWeight="bold"
+                        fontWeight={"bold"}
                         fontSize={18}
                         mx={2.5}
-                        numberOfLines={1} // memberikan batas panjang teks, jika 1 maka hanya sampai 1 kalimat
+                        numberOfLines={2}
                         mt={1.5}
                       >
-                        {item.judul}
+                        {item.judul.split(" ").map((word, index, array) => (
+                          <React.Fragment key={index}>
+                            {word} {index === array.length - 1 ? null : " "}
+                            {index !== 0 && (index + 1) % 5 === 0 ? "\n" : null}
+                          </React.Fragment>
+                        ))}
                       </Text>
-                      <Text mx={2.5} numberOfLines={2}>
-                        {item.deskripsi}
+                      <Text mx={2} numberOfLines={2}>
+                        {item.deskripsi.split(" ").map((word, index, array) => (
+                          <React.Fragment key={index}>
+                            {word} {index === array.length - 1 ? null : " "}
+                            {index !== 0 && (index + 1) % 5 === 0 ? "\n" : null}
+                          </React.Fragment>
+                        ))}
                       </Text>
                     </Box>
                   </Box>

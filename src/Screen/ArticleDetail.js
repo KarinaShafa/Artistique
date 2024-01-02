@@ -11,6 +11,10 @@ const ArticleDetail = () => {
   const initialTitle = route.params ? route.params.title : "";
   const initialContent = route.params ? route.params.content : "";
 
+  const addSpacesToBeginning = (text) => {
+    return text.replace(/([.!?])\s*(\w)/g, "$1  $2");
+  };
+  
   return (
     <ScrollView>
       {/* Gambar Full */}
@@ -33,7 +37,7 @@ const ArticleDetail = () => {
 
       {/* Konten */}
       <Box p={4}>
-        <Text>{initialContent}</Text>
+        <Text textAlign="justify">{addSpacesToBeginning(initialContent)}</Text>
       </Box>
     </ScrollView>
   );
