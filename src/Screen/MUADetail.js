@@ -28,6 +28,8 @@ const MUADetails = () => {
   const specialty = initialData.specialty;
   const exp = initialData.exp;
   const reviews = initialData.reviews;
+  const about = initialData.about;
+  const sosmed = initialData.sosmed;
 
   const MUAData = [
     {
@@ -37,8 +39,8 @@ const MUADetails = () => {
       text: text,
       exp: exp,
       reviews: reviews,
-      about:
-      "Clara Ayu Sheila adalah seorang makeup artist berbakat yang telah mengejar karirnya dalam industri kecantikan. Dengan fokus khusus pada makeup untuk kelulusan dan pernikahan, Clara Ayu Sheila berkomitmen untuk membuat momen spesial Anda terasa lebih istimewa dan berkesan.",
+      about: about,
+      sosmed: sosmed,
     },
   ];
 
@@ -76,7 +78,7 @@ const MUADetails = () => {
             Experience: <Text fontWeight={"bold"}>{MUAData[0].exp}</Text>
           </Text>
           <Text>
-            Social Media: @makeupbycla @claraayusheila <Text fontWeight={"bold"}>{MUAData[0].reviews}</Text>
+            Instagram: <Text fontWeight={"bold"}>{MUAData[0].sosmed}</Text>
           </Text>
         </Box>
 

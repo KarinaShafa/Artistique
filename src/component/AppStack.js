@@ -17,6 +17,7 @@ import { ThemeContext } from "./themeContext";
 import HistoryScreen from "../Screen/Profile/Content/History";
 import BookedScreen from "../Screen/Booked"; 
 import BookedDetail from "../Screen/BookedDetail";
+import ScheduleDetail from "../Screen/ScheduleDetail";
 import ArticleDetail from "../Screen/ArticleDetail";
 import PesanScreen from "../Screen/Chat";
 import RecomendationDetail from "../Screen/DetailRecomendation";
@@ -35,11 +36,14 @@ const AppStack = () => {
                 <Stack.Screen
                     name="MUADetails"
                     component={MUADetails}
-                    options={({ route }) => ({
-                        headerShown: true,
-                        // headerTitle: "",
-                        title: route.params.userName,
-                    })}
+                    options={{
+                        headerTitle: "MUA Detail",
+                        headerStyle: {
+                            backgroundColor: activeColors.primary,
+                        },
+                        headerTintColor: activeColors.tint,
+                        headerTitleAlign: "center",
+                    }}
                     initialParams={{
                         userName: "",
                         userImg: null,
@@ -185,6 +189,15 @@ const AppStack = () => {
                     options={{
                         headerShown: false,
                         headerTitle: "Booked Detail",
+                        headerTitleAlign: "center",
+                    }}
+                />
+
+                <Stack.Screen
+                    name="ScheduleDetail"
+                    component={ScheduleDetail}
+                    options={{ 
+                        headerShown: true,
                         headerTitleAlign: "center",
                     }}
                 />
