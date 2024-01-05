@@ -3,12 +3,16 @@ import { TouchableOpacity } from "react-native";
 import { Box, Text, Image, Flex } from "native-base";
 import Icon from "react-native-vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
 import colors from "./theme";
 
 const ScheduleBooked = () => {
+
+  const navigation = useNavigation();
+
   return (
     <Box>
-      <Box mt={5}>
+      <Box mt={1}>
         <Flex direction="row">
           <Text color={"#8A527D"} fontWeight={"bold"}>
             Schedule Booked
@@ -20,9 +24,7 @@ const ScheduleBooked = () => {
               flex: 1,
             }}
           >
-            <Text color={"#A01437"} fontWeight={"bold"}>
-              View More
-            </Text>
+  
           </TouchableOpacity>
         </Flex>
       </Box>
@@ -34,7 +36,7 @@ const ScheduleBooked = () => {
             style={{ borderRadius: 10 }}
             colors={["#A01437", "#8A527D"]}
           >
-            <TouchableOpacity style={{ padding: 20, borderRadius: 10 }}>
+            <TouchableOpacity style={{ padding: 20, borderRadius: 10 }} onPress={() => navigation.navigate('ScheduleDetail')}>
               <Box style={{ flexDirection: "row" }}>
                 <Image
                   source={require("../image/MUA1.jpg")}

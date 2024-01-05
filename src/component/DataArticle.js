@@ -2,9 +2,9 @@ const DataArticles = [
 	{
 		id: 1,
 		image: require("../image/ARTICLE2.jpg"),
-		judul: "Buat Kulit Glowing dan Sehat!",
+		judul: "Buat Kulit Jadi Glowing dan Sehat!",
 		deskripsi:
-			"Ini dia tren Skincare Skinimalism",
+			"Pakai skincare sampai 10 steps rasanya sudah nggak terlalu hits lagi. Saat ini, skinimalism justru jadi andalan banyak orang!",
 		content: `
 		Kamu pernah berada di fase memakai skincare sampai 10 steps seperti para cewek Korea, nggak?
 		Kalau iya, sepertinya kamu sudah mulai bisa beralih ke aliran lainnya yaitu skinimalism! 
