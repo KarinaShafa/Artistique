@@ -198,7 +198,7 @@ const AppStack = () => {
                             backgroundColor: activeColors.primary,
                         },
                         headerTintColor: activeColors.tint,
-                        headerTitleAlign: "center",
+                        headerTitleAlign: "center"
                     })}
                     initialParams={{ messageText: "", userImg: null }}
                 />

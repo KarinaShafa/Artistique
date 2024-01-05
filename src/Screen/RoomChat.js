@@ -23,6 +23,8 @@ const RoomChatScreen = () => {
   const initialMessageText = route.params ? route.params.messageText : "";
   const initialUserImg = route.params ? route.params.userImg : null;
 
+  
+
   // menyimpan isi pesan (isi pesan MUA yang dimunculkan)
   const [messages, setMessages] = useState([
     {
