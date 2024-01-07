@@ -11,15 +11,12 @@ import ForgotPasswordScreen from "../Screen/Profile/Auth/Forgot";
 import MyProfileScreen from "../Screen/Profile/Account/MyProfile";
 import ResetPasswordScreen from "../Screen/Profile/Account/ResetPassword";
 import MUADetails from "../Screen/MUADetail";
-import RoomChatScreen from "../Screen/RoomChat";
 import colors from "./theme";
 import { ThemeContext } from "./themeContext";
-import HistoryScreen from "../Screen/Profile/Content/History";
 import BookedScreen from "../Screen/Booked"; 
 import BookedDetail from "../Screen/BookedDetail";
 import ScheduleDetail from "../Screen/ScheduleDetail";
 import ArticleDetail from "../Screen/ArticleDetail";
-import PesanScreen from "../Screen/Chat";
 import RecomendationDetail from "../Screen/DetailRecomendation";
 
 const Stack = createStackNavigator();
@@ -53,12 +50,6 @@ const AppStack = () => {
                         reviews: "",
                     }}
                 />   
-
-                <Stack.Screen
-                    name="History"
-                    component={HistoryScreen}
-                    options={{ headerShown: false }}
-                />
 
                 <Stack.Screen
                     name="Welcome"
@@ -175,20 +166,12 @@ const AppStack = () => {
                     name="BookedDetail"
                     component={BookedDetail}
                     options={{
+                        headerLeft: null, // Menyembunyikan tombol back
                         headerTitle: "Booked Detail",
                         headerStyle: {
                             backgroundColor: activeColors.primary,
                         },
                         headerTintColor: activeColors.tint,
-                        headerTitleAlign: "center",
-                    }}
-                />
-                <Stack.Screen
-                    name="Chat"
-                    component={PesanScreen}
-                    options={{
-                        headerShown: false,
-                        headerTitle: "Booked Detail",
                         headerTitleAlign: "center",
                     }}
                 />
@@ -197,24 +180,16 @@ const AppStack = () => {
                     name="ScheduleDetail"
                     component={ScheduleDetail}
                     options={{ 
-                        headerShown: true,
-                        headerTitleAlign: "center",
-                    }}
-                />
-
-                <Stack.Screen
-                    name="RoomChat"
-                    component={RoomChatScreen}
-                    options={({ route }) => ({
-                        title: route.params.userName,
+                        headerLeft: null, // Menyembunyikan tombol back
+                        headerTitle: "Schedule Detail",
                         headerStyle: {
                             backgroundColor: activeColors.primary,
                         },
                         headerTintColor: activeColors.tint,
                         headerTitleAlign: "center",
-                    })}
-                    initialParams={{ messageText: "", userImg: null }}
+                    }}
                 />
+
             </Stack.Navigator>
         </>
     )

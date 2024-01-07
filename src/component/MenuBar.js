@@ -5,16 +5,13 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-
 import colors from "./theme";
 import { ThemeContext } from "./themeContext";
 import HomeScreen from "../Screen/Home";
-// coba dihapus yang appoinmentscreen
-import AppointmentScreen from "../Screen/Booked";
-import PesanScreen from "../Screen/Chat";
 import ProfileScreen from "../Screen/Profile/ProfileScreen";
 import MUA from "../Screen/MUA";
 import BookedScreen from "../Screen/Booked";
+import HistoryBooked from "../Screen/HistoryBooked"; 
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -168,8 +165,8 @@ const MenuBar = () => {
         />
 
         <Tab.Screen
-          name="Message"
-          component={PesanScreen}
+          name="HistoryBooked"
+          component={HistoryBooked}
           options={({ navigation }) => ({
             headerStyle: {
               backgroundColor: activeColors.primary
@@ -185,10 +182,10 @@ const MenuBar = () => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                onPress={() => navigation.navigate("Message")}
+                onPress={() => navigation.navigate("HistoryBooked")}
               >
                 <Icon
-                  name="chatbubble"
+                  name="calendar"
                   size={size}
                   color={
                     focused ? activeColors.iconFocus : activeColors.barIcon
@@ -198,7 +195,7 @@ const MenuBar = () => {
                   fontSize={12}
                   style={{ color: focused ? activeColors.iconFocus : activeColors.barIcon }}
                 >
-                  Message
+                  History Booked
                 </Text>
               </TouchableOpacity>
             ),

@@ -40,7 +40,7 @@ const Data = [
     text: '4.6',
     specialty: "Make Up Graduation",
     exp: "5 years",
-    about: "Natashalief, seorang MUA berpengalaman selama 12 tahun, adalah ahli tata rias yang mengkhususkan diri dalam makeup untuk acara wisuda. Dengan keahlian yang teruji dan portofolio yang kaya pengalaman, Natashalief mampu menciptakan tampilan makeup yang sesuai dengan gaya dan kepribadian setiap klien. Keberhasilannya tidak hanya tercermin dalam keterampilan seni rias yang tinggi, tetapi juga dalam kemampuannya untuk terus mengikuti tren terbaru dalam industri kecantikan. Dengan dedikasi yang kuat terhadap kepuasan pelanggan dan kualitas pelayanan, Natashalief menjadi pilihan yang luar biasa bagi mereka yang mencari MUA berpengalaman untuk menyempurnakan momen wisuda mereka dengan sentuhan kecantikan yang istimewa.",
+    about: "Natashalief, seorang MUA berpengalaman selama 5 tahun, adalah ahli tata rias yang mengkhususkan diri dalam makeup untuk acara wisuda. Dengan keahlian yang teruji dan portofolio yang kaya pengalaman, Natashalief mampu menciptakan tampilan makeup yang sesuai dengan gaya dan kepribadian setiap klien. Keberhasilannya tidak hanya tercermin dalam keterampilan seni rias yang tinggi, tetapi juga dalam kemampuannya untuk terus mengikuti tren terbaru dalam industri kecantikan. Dengan dedikasi yang kuat terhadap kepuasan pelanggan dan kualitas pelayanan, Natashalief menjadi pilihan yang luar biasa bagi mereka yang mencari MUA berpengalaman untuk menyempurnakan momen wisuda mereka dengan sentuhan kecantikan yang istimewa.",
     sosmed: "@nathasalief",
   },
   {
@@ -62,7 +62,7 @@ const Data = [
     text: '5',
     specialty: "Korean Make Up",
     exp: "6 years",
-    about: "Fauziah Hanum, seorang MUA berpengalaman selama 14 tahun, menghadirkan keahlian khususnya dalam menciptakan tampilan makeup dengan gaya Korea yang unik dan trendi. Dengan pengalaman yang luas, Fauziah tidak hanya menjadi ahli dalam menangkap estetika khas Korea, tetapi juga mampu menghadirkan sentuhan pribadi dan inovatif ke dalam setiap tata riasnya. Sebagai seorang profesional kecantikan yang berdedikasi, pengalaman panjangnya mencerminkan komitmennya terhadap pelayanan berkualitas tinggi dan pengetahuan yang mendalam tentang tren terbaru dalam dunia kecantikan Korea. Fauziah Hanum adalah pilihan yang luar biasa bagi mereka yang mencari MUA berpengalaman untuk menciptakan tampilan makeup Korea yang elegan dan menawan.",
+    about: "Fauziah Hanum, seorang MUA berpengalaman selama 6 tahun, menghadirkan keahlian khususnya dalam menciptakan tampilan makeup dengan gaya Korea yang unik dan trendi. Dengan pengalaman yang luas, Fauziah tidak hanya menjadi ahli dalam menangkap estetika khas Korea, tetapi juga mampu menghadirkan sentuhan pribadi dan inovatif ke dalam setiap tata riasnya. Sebagai seorang profesional kecantikan yang berdedikasi, pengalaman panjangnya mencerminkan komitmennya terhadap pelayanan berkualitas tinggi dan pengetahuan yang mendalam tentang tren terbaru dalam dunia kecantikan Korea. Fauziah Hanum adalah pilihan yang luar biasa bagi mereka yang mencari MUA berpengalaman untuk menciptakan tampilan makeup Korea yang elegan dan menawan.",
     sosmed: "@fauziaahanum",
   },
   {
@@ -73,7 +73,7 @@ const Data = [
     text: '4.8',
     specialty: "Thailand Make Up",
     exp: "8 years",
-    about: "Ochi Pramita, seorang MUA dengan pengalaman selama 12 tahun, membawa keahlian dan keunikan dalam menciptakan tampilan makeup dengan sentuhan khas Thailand. Dengan fokus pada estetika dan tren kecantikan Thailand, Ochi Pramita tidak hanya menjadi ahli dalam menghadirkan keindahan tradisional Thailand ke dalam tata riasnya, tetapi juga memadukan elemen-elemen modern untuk menciptakan tampilan yang segar dan trendi. Pengalaman panjangnya mencerminkan komitmen Ochi Pramita terhadap pelayanan terbaik dan pemahaman yang mendalam tentang kebutuhan individu. Sebagai seorang profesional kecantikan yang berbakat dan berpengalaman, Ochi Pramita menjadi pilihan ideal bagi mereka yang mencari MUA untuk menciptakan tampilan makeup Thailand yang elegan dan memukau.",
+    about: "Ochi Pramita, seorang MUA dengan pengalaman selama 8 tahun, membawa keahlian dan keunikan dalam menciptakan tampilan makeup dengan sentuhan khas Thailand. Dengan fokus pada estetika dan tren kecantikan Thailand, Ochi Pramita tidak hanya menjadi ahli dalam menghadirkan keindahan tradisional Thailand ke dalam tata riasnya, tetapi juga memadukan elemen-elemen modern untuk menciptakan tampilan yang segar dan trendi. Pengalaman panjangnya mencerminkan komitmen Ochi Pramita terhadap pelayanan terbaik dan pemahaman yang mendalam tentang kebutuhan individu. Sebagai seorang profesional kecantikan yang berbakat dan berpengalaman, Ochi Pramita menjadi pilihan ideal bagi mereka yang mencari MUA untuk menciptakan tampilan makeup Thailand yang elegan dan memukau.",
     sosmed: "@ochiipramita",
   },
 ];
