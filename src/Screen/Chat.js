@@ -26,8 +26,18 @@ const PesanScreen = () => {
   const navigation = useNavigation();
   
 
+  // tambah kode untuk ke salah satu MUA
+  const handleChatPress = (MUAData) => {
+    navigation.navigate("RoomChat", {
+      MUAData:{
+        id : MUAData.id,
+        userName: MUAData.userName,
+        userImg: MUAData.userImg,
+      },
+    });
+  };
+
   return (
-   
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Box flex={1}>
         <Box flex={1} pl={5} pr={5} backgroundColor={activeColors.primary}>
@@ -61,13 +71,7 @@ const PesanScreen = () => {
                 <TouchableOpacity
                   style={{ width: "100%" }}
                   // saat ditekan data akan ikut dibawah ke roomchat
-                  onPress={() =>
-                    navigation.navigate("RoomChat", {
-                      userName: item.userName,
-                      messageText: item.messageText,
-                      userImg: item.userImg,
-                    })
-                  }
+                  onPress={() => handleChatPress(item)}
                 >
                   <Box justifyContent={"space-between"}>
                     <Flex direction="row">

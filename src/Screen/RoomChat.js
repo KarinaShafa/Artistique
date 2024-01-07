@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useState, useEffect } from "react";
 import { Box, Text, Center } from "native-base";
 import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const RoomChatScreen = () => {
   // const theme = { mode: "dark" };
@@ -20,41 +20,77 @@ const RoomChatScreen = () => {
   let activeColors = colors[theme.mode];
 
   const route = useRoute();
-  const initialMessageText = route.params ? route.params.messageText : "";
-  const initialUserImg = route.params ? route.params.userImg : null;
+  const {MUAData} = route.params;
+  const userId = MUAData.id;
+  // const initialMessageText = route.params ? route.params.messageText : "";
+  // const initialUserImg = route.params ? route.params.userImg : null;
 
   
+const [messages, setMessages] = useState([]);
+
+useEffect(() => {
+  loadChatHistory();
+}, []);
+
+const loadChatHistory = async () => {
+  try {
+    const chatHistory = await AsyncStorage.getItem(`chat_${userId}`);
+    if (chatHistory) {
+      setMessages(JSON.parse(chatHistory));
+    }
+  } catch (error) {
+    console.error("error loading chat history:", error);
+  }
+};
+
+const saveChatHistory = async () => {
+  try {
+    await AsyncStorage.setItem(`chat_${userId}`, JSON.stringify(messages));
+  } catch (error) {
+    console.error("Error saving chat history", error);
+  }
+};
+
 
   // menyimpan isi pesan (isi pesan MUA yang dimunculkan)
-  const [messages, setMessages] = useState([
-    {
-      _id: 1,
-      text: "Hello",
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: "Teks",
-        avatar: initialUserImg,
-      },
-    },
-    {
-      _id: 2,
-      text: initialMessageText,
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: "Teks2",
-        avatar: initialUserImg,
-      },
-    },
+  // const [messages, setMessages] = useState([
+  //   {
+  //     _id: 1,
+  //     text: "Hello",
+  //     createdAt: new Date(),
+  //     user: {
+  //       _id: 2,
+  //       name: "Teks",
+  //       avatar: initialUserImg,
+  //     },
+  //   },
+  //   {
+  //     _id: 2,
+  //     text: initialMessageText,
+  //     createdAt: new Date(),
+  //     user: {
+  //       _id: 2,
+  //       name: "Teks2",
+  //       avatar: initialUserImg,
+  //     },
+  //   },
     
-  ]);
+  // ]);
 
-  const onSend = useCallback((messages = []) => {
+  // const onSend = useCallback((messages = []) => {
+  //   setMessages((previousMessages) =>
+  //     GiftedChat.append(previousMessages, messages)
+  //   );
+  // }, []);
+  const onSend = useCallback((newMessages = []) => {
     setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages)
+      GiftedChat.append(previousMessages, newMessages)
     );
   }, []);
+
+  useEffect(() => {
+    saveChatHistory();
+  }, [messages]);
 
   // scroll down
   const scrollToBottomComponent = () => {
