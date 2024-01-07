@@ -50,8 +50,6 @@ const saveChatHistory = async () => {
     console.error("Error saving chat history", error);
   }
 };
-
-
   // menyimpan isi pesan (isi pesan MUA yang dimunculkan)
   // const [messages, setMessages] = useState([
   //   {
