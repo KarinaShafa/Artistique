@@ -27,11 +27,11 @@ const ScheduleDetail = () => {
     exp,
   } = route.params ? route.params : {};
 
-  const navigateToHistoryBooked = () => {
+  const navigateToHistoryBooking = () => {
     // Memeriksa apakah nilai-nilai yang diperlukan sudah ada
     if (bookedDate && userName && userImg) {
       // Navigasi ke HistoryBooked dengan membawa data
-      navigation.navigate("HistoryBooked", {
+      navigation.navigate("HistoryBooking", {
         bookedDate,
         userName,
         userImg,
@@ -153,7 +153,7 @@ const ScheduleDetail = () => {
         )}
           <Box flexDirection={"row"} justifyContent={"center"} mt={40} mb={20}>
           <TouchableOpacity
-            onPress={navigateToHistoryBooked}
+            onPress={navigateToHistoryBooking}
             style={{
               backgroundColor: "#A01437",
               paddingVertical: 12,

@@ -18,6 +18,8 @@ import BookedDetail from "../Screen/BookedDetail";
 import ScheduleDetail from "../Screen/ScheduleDetail";
 import ArticleDetail from "../Screen/ArticleDetail";
 import RecomendationDetail from "../Screen/DetailRecomendation";
+import HistoryBooking from "../Screen/Profile/Content/HistoryBooking";
+import PesanScreen from "../Screen/Chat";
 
 const Stack = createStackNavigator();
 
@@ -166,7 +168,7 @@ const AppStack = () => {
                     name="BookedDetail"
                     component={BookedDetail}
                     options={{
-                        headerLeft: null, // Menyembunyikan tombol back
+                        //headerLeft: null, // Menyembunyikan tombol back
                         headerTitle: "Booked Detail",
                         headerStyle: {
                             backgroundColor: activeColors.primary,
@@ -180,12 +182,32 @@ const AppStack = () => {
                     name="ScheduleDetail"
                     component={ScheduleDetail}
                     options={{ 
-                        headerLeft: null, // Menyembunyikan tombol back
+                        //headerLeft: null, // Menyembunyikan tombol back
                         headerTitle: "Schedule Detail",
                         headerStyle: {
                             backgroundColor: activeColors.primary,
                         },
                         headerTintColor: activeColors.tint,
+                        headerTitleAlign: "center",
+                    }}
+                />
+
+                <Stack.Screen
+                    name="HistoryBooking"
+                    component={HistoryBooking}
+                    options={{
+                        headerShown: true,
+                        headerTitle: "History Booking",
+                        headerTitleAlign: "center",
+                    }}
+                />
+
+                <Stack.Screen
+                    name="Chat"
+                    component={PesanScreen}
+                    options={{
+                        headerShown: true,
+                        headerTitle: "Chat",
                         headerTitleAlign: "center",
                     }}
                 />

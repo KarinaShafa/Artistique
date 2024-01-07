@@ -21,8 +21,8 @@ import {
   MenuProvider,
   MenuTrigger,
 } from "react-native-popup-menu";
-import colors from "../component/theme";
-import { ThemeContext } from "../component/themeContext";
+import colors from "../../../component/theme";
+import { ThemeContext } from "../../../component/themeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   collection,
@@ -33,10 +33,10 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { firebaseConfig } from "../../firebase-config";
+import { firebaseConfig } from "../../../../firebase-config";
 import { initializeApp } from "firebase/app";
 
-const HistoryBooked = () => {
+const HistoryBooking = () => {
   const DB = initializeApp(firebaseConfig);
   const firestore = getFirestore(DB);
 
@@ -61,7 +61,6 @@ const HistoryBooked = () => {
             const parsedBookingData = JSON.parse(bookingData);
             bookingDataState = parsedBookingData;
             console.log("Data from AsyncStorage:", bookingDataState);
-            // Gunakan parsedBookingData untuk menampilkan atau memproses data yang diambil dari AsyncStorage
           } else {
             console.log("No data found in AsyncStorage for bookings");
           }
@@ -82,27 +81,24 @@ const HistoryBooked = () => {
     try {
       console.log("Cancel Booking for User:", userName);
   
-      // Tambahkan alert konfirmasi
       Alert.alert(
-        "Cancellation Confirmation",
-        `Are you sure you want to cancel your booking for ${userName}?`,
+        "Konfirmasi Pembatalan",
+        `Apakah Anda yakin ingin membatalkan pemesanan untuk ${userName}?`,
         [
           {
-            text: "No",
+            text: "Tidak",
             style: "cancel",
           },
           {
-            text: "Yes",
+            text: "Ya",
             onPress: async () => {
-              // Pastikan userName memiliki nilai yang valid sebelum melanjutkan
               if (!userName) {
-                console.error("Invalid userName for cancellation");
+                console.error("Nama pengguna tidak valid untuk pembatalan");
                 return;
               }
 
               const updatedData = data.filter((booking) => booking.userName !== userName);
 
-              // Hapus data dari Firestore
               const querySnapshot = await getDocs(
                 query(DataBooking, where("userName", "==", userName))
               );
@@ -112,12 +108,9 @@ const HistoryBooked = () => {
                 console.log("Data berhasil dihapus dari Firestore");
               });
 
-              // Simpan kembali data setelah penghapusan
               await AsyncStorage.setItem("BookingData", JSON.stringify(updatedData));
-              // Perbarui state jika diperlukan
               setData(updatedData);
 
-              // Simpan data terakhir ke AsyncStorage
               const lastBooking = updatedData.length > 0 ? updatedData[updatedData.length - 1] : null;
               await AsyncStorage.setItem("LastBooking", JSON.stringify(lastBooking));
             },
@@ -128,7 +121,10 @@ const HistoryBooked = () => {
       console.error("Error deleting booking:", error);
     }
   }; 
-  
+
+  const handleProfileNavigation = () => {
+    navigation.navigate("Profile"); // Ganti "Profile" dengan nama halaman profil yang sebenarnya
+  };
 
   return (
     <MenuProvider
@@ -146,7 +142,6 @@ const HistoryBooked = () => {
               {data.length === 0 ? (
                 <Box
                   p={4}
-                  
                 >
                   <Text fontSize="18" color={activeColors.tint} textAlign="center">
                     There is No Booking History
@@ -181,9 +176,9 @@ const HistoryBooked = () => {
                     >
                       <Box pt={4} pb={4}>
                           <Image
-                            w={"70"}
-                            h={"70"}
-                            rounded={"35"}
+                            w={70}
+                            h={70}
+                            rounded={35}
                             source={{ uri: item.userImg }}
                             alt="MUA"
                           />
@@ -237,6 +232,7 @@ const HistoryBooked = () => {
                         </Flex>
                       </Box>
                     </Box>
+                    {console.log("URL Gambar:", item.userImg)}
                   </TouchableOpacity>
                 )}
               />
@@ -245,8 +241,38 @@ const HistoryBooked = () => {
           </Center>
         </Box>
       </Box>
+
+      {/* Tombol "Go to Profile" yang dimasukkan ke dalam Box */}
+      <Box backgroundColor={activeColors.primary} flexDirection={"row"} justifyContent={"center"}  mb={20}>
+        <TouchableOpacity
+          onPress={handleProfileNavigation}
+          style={{
+            backgroundColor: "#A01437",
+            paddingVertical: 12,
+            paddingHorizontal: 16,
+            width: "85%",
+            borderRadius: 10,
+            shadowColor: "#A01437",
+            shadowOffset: {
+              width: 0,
+              height: 4,
+            },
+            shadowOpacity: 0.3,
+            shadowRadius: 4,
+            elevation: 8,
+          }}
+        >
+          <Text
+            color="white"
+            fontSize="xl"
+            textAlign="center"
+          >
+            Go To Profile
+          </Text>
+        </TouchableOpacity>
+      </Box>
     </MenuProvider>
   );
 };
 
-export default HistoryBooked;
+export default HistoryBooking;
