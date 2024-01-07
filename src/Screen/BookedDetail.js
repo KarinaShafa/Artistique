@@ -23,6 +23,9 @@ import { useRoute } from "@react-navigation/core";
 import { useNavigation } from "@react-navigation/native";
 import { ThemeContext } from "../component/themeContext";
 import colors from "../component/theme";
+import { firestore } from '../../firebase-config';
+import { addDoc, collection } from 'firebase/firestore';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
 
@@ -44,7 +47,7 @@ const BookedDetail = () => {
   const [initialTimeSelected, setInitialTimeSelected] = useState(true);
   const [message, setMessage] = useState("");
 
-  const timeSlots = Array.from({ length: 11 }, (_, i) => ({
+  const timeSlots = Array.from({ length: 18 }, (_, i) => ({
     id: i,
     time: `${i + 3}:00 am`,
   }));
@@ -67,6 +70,66 @@ const BookedDetail = () => {
       });
     });
   }, [week]);
+
+  const handleConfirmBooked = async () => {
+    if (!message.trim()) {
+      // Tampilkan alert jika bookedFor belum diisi
+      alert("Please fill in the 'Booked For' field before confirming the booking.");
+      return;
+    }
+
+    // Simpan data ke AsyncStorage
+    try {
+      const bookingData = await AsyncStorage.getItem("BookingData");
+      let bookingDataState = [];
+      if (bookingData !== null) {
+        const parsedBookingData = JSON.parse(bookingData);
+        bookingDataState = parsedBookingData;
+      }
+
+      const newBooking = {
+        id: (bookingDataState.length + 1).toString(), // Assign ID, bisa diganti sesuai kebutuhan
+        userName,
+        userImg,
+        specialty,
+        exp,
+        bookedDate: new Date().toDateString(),
+        bookedTime: selectedTime,
+        bookedFor: message,
+      };
+
+      bookingDataState.push(newBooking);
+
+      await AsyncStorage.setItem("BookingData", JSON.stringify(bookingDataState));
+      // Navigasi ke halaman ScheduleDetail
+      navigation.navigate('ScheduleDetail', newBooking);
+    } catch (error) {
+      console.error("Error saving data to AsyncStorage:", error);
+    }
+
+    // Simpan data ke Firestore
+    const bookingsCollection = collection(firestore, 'bookings');
+    const docRef = await addDoc(bookingsCollection, {
+      userName,
+      userImg,
+      specialty,
+      exp,
+      bookedDate: new Date().toDateString(),
+      bookedTime: selectedTime,
+      bookedFor: message,
+    });
+
+    // Navigasi ke halaman ScheduleDetail
+    navigation.navigate('ScheduleDetail', {
+      userName,
+      userImg,
+      specialty,
+      exp,
+      bookedDate: new Date().toDateString(),
+      bookedTime: selectedTime,
+      bookedFor: message,
+    });
+  };
 
   return (
     <ScrollView backgroundColor={activeColors.primary}>
@@ -247,16 +310,9 @@ const BookedDetail = () => {
 						backgroundColor: "#A01437",
 						borderRadius: 8
 					 }}
-           onPress={() => {
-            navigation.navigate("ScheduleDetail", {
-              ...route.params,
-              bookedDate: value.toDateString(),
-              bookedTime: selectedTime,
-              bookedFor: message,
-            });
-          }}          
+           onPress={handleConfirmBooked}
         >
-				<Text py={3} textAlign={'center'} color={'white'}>
+        <Text py={3} textAlign={'center'} color={'white'}>
           Confirm Booked
 				</Text>
         </TouchableOpacity>

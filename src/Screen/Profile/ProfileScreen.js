@@ -156,9 +156,6 @@ const ProfileScreen = () => {
     if (id === "MyProfile") {
       navigation.navigate("MyProfile");
     }
-    else if (id === "History") {
-      navigation.navigate("History")
-    }
     else if (id === "AddAccount") {
       navigation.navigate("Register")
     }
