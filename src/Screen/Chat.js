@@ -17,7 +17,6 @@ import { Keyboard, TouchableOpacity, TouchableWithoutFeedback } from "react-nati
 import { Ionicons } from "@expo/vector-icons";
 import Messages from "../component/DataChat";
 
-
 const PesanScreen = () => {
   // const theme = { mode: "dark" };
   const { theme, updateTheme } = useContext(ThemeContext);
@@ -38,6 +37,7 @@ const PesanScreen = () => {
   };
 
   return (
+
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Box flex={1}>
         <Box flex={1} pl={5} pr={5} backgroundColor={activeColors.primary}>

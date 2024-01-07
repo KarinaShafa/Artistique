@@ -80,6 +80,7 @@ const saveChatHistory = async () => {
   //     GiftedChat.append(previousMessages, messages)
   //   );
   // }, []);
+  
   const onSend = useCallback((newMessages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, newMessages)
