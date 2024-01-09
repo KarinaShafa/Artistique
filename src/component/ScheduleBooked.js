@@ -64,6 +64,7 @@ const ScheduleBooked = () => {
             {hasBooking ? (
               data.length > 0 ? (
                 data.map((item) => (
+                  
                   <Flex key={item.id} direction="row" justifyContent="space-between">
                     <Box style={{ flexDirection: "row" }}>
                       <Image

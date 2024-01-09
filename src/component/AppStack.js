@@ -42,8 +42,8 @@ const AppStack = () => {
                         headerTitleAlign: "center",
                     }}
                     initialParams={{
-                        userName: "",
-                        userImg: null,
+                        userName: null,
+                        userImg: "",
                         text: "",
                         specialty: "",                        
                         exp: "",
@@ -105,7 +105,7 @@ const AppStack = () => {
                             headerTitleAlign: "center",
                         })}
                             initialParams={{ //menetapkan nilai awal, menghindari undefined
-                            image: null,
+                            image: "",
                             title: "",
                             content: "",
                         }}
@@ -121,7 +121,7 @@ const AppStack = () => {
                             headerTitleAlign: "center",
                         })}
                             initialParams={{ //menetapkan nilai awal, menghindari undefined
-                            image: null,
+                            image: "",
                             title: "",
                             content: "",
                         }}
