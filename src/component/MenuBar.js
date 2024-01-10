@@ -185,7 +185,7 @@ const MenuBar = () => {
                 onPress={() => navigation.navigate("Chat")}
               >
                 <Icon
-                  name="calendar"
+                  name="chatbubble"
                   size={size}
                   color={
                     focused ? activeColors.iconFocus : activeColors.barIcon

@@ -20,6 +20,7 @@ import ArticleDetail from "../Screen/ArticleDetail";
 import RecomendationDetail from "../Screen/DetailRecomendation";
 import HistoryBooking from "../Screen/Profile/Content/HistoryBooking";
 import PesanScreen from "../Screen/Chat";
+import RoomChatScreen from "../Screen/RoomChat";
 
 const Stack = createStackNavigator();
 
@@ -182,7 +183,7 @@ const AppStack = () => {
                     name="ScheduleDetail"
                     component={ScheduleDetail}
                     options={{ 
-                        //headerLeft: null, // Menyembunyikan tombol back
+                        headerLeft: null, // Menyembunyikan tombol back
                         headerTitle: "Schedule Detail",
                         headerStyle: {
                             backgroundColor: activeColors.primary,
@@ -196,6 +197,7 @@ const AppStack = () => {
                     name="HistoryBooking"
                     component={HistoryBooking}
                     options={{
+                        headerLeft: null, // Menyembunyikan tombol back
                         headerShown: true,
                         headerTitle: "History Booking",
                         headerTitleAlign: "center",
@@ -210,6 +212,20 @@ const AppStack = () => {
                         headerTitle: "Chat",
                         headerTitleAlign: "center",
                     }}
+                />
+
+                <Stack.Screen
+                    name="RoomChat"
+                    component={RoomChatScreen}
+                    options={({ route }) => ({
+                        title: route.params.userName,
+                        headerStyle: {
+                            backgroundColor: activeColors.primary,
+                        },
+                        headerTintColor: activeColors.tint,
+                        headerTitleAlign: "center"
+                    })}
+                    initialParams={{ messageText: "", userImg: null }}
                 />
 
             </Stack.Navigator>
