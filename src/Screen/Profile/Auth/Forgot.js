@@ -118,20 +118,20 @@ const ForgotPasswordScreen = ({ navigation }) => {
           // 2. Kirim email dengan password yang ditemukan
           // await MailComposer.composeAsync({
           //   recipients: [email],
-          //   subject: "Forgot Password CareOnGo",
+          //   subject: "Forgot Password",
           //   body: `Terimakasih sudah mengirimkan request forgot password kepada kami dan sabar menunggu respon dari kami. ini adalah password baru kamu, Password : ${password} dimohon untuk berhati-hati terhadap password anda karena ini merupakan privasi, dan untuk lebih di ingat-ingat lagi untuk kedepannya. Terimakasih`,
           // });
 
-          const serviceId = "service_ngo3tdh";
-          const templateId = "template_m29j3ql";
-          const publicKey = "j00igohsXtNjDq6rv";
+          const serviceId = "service_hp9zqkt";
+          const templateId = "template_adu3hof";
+          const publicKey = "voV7WTsXxxE0Z1kqE";
 
           const templateParams = {
-            from_name: "CareOnGo Team",
-            from_email: "yanuarcahyo567@gmail.com",
+            from_name: "Artistique Team",
+            from_email: "Artistique@gmail.com",
             to_name: userData.name,
             to_email: email,
-            message: `Password lama kamu: ${decryptedPass}`,
+            message: `Password lama kamu: ${decryptedPass}`, 
           };
 
           emailjs
