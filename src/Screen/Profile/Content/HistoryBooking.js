@@ -45,8 +45,6 @@ const HistoryBooking = () => {
   const { theme, updateTheme } = useContext(ThemeContext);
   let activeColors = colors[theme.mode];
 
-  const [selectedImage, setSelectedImage] = useState(null);
-
   const [data, setData] = useState([]);
 
   const navigation = useNavigation();
@@ -82,15 +80,15 @@ const HistoryBooking = () => {
       console.log("Cancel Booking for User:", userName);
   
       Alert.alert(
-        "Konfirmasi Pembatalan",
-        `Apakah Anda yakin ingin membatalkan pemesanan untuk ${userName}?`,
+        "Confirm Cancellation",
+        `Are you sure you want to cancel your order for ${userName}?`,
         [
           {
-            text: "Tidak",
+            text: "No",
             style: "cancel",
           },
           {
-            text: "Ya",
+            text: "Yes",
             onPress: async () => {
               if (!userName) {
                 console.error("Nama pengguna tidak valid untuk pembatalan");
@@ -127,152 +125,148 @@ const HistoryBooking = () => {
   };
 
   return (
-    <MenuProvider
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Box>
-        <Box backgroundColor={activeColors.primary}>
-          <Center>
-            <Box mt={4}>
-              {data.length === 0 ? (
-                <Box
-                  p={4}
-                >
-                  <Text fontSize="18" color={activeColors.tint} textAlign="center">
-                    There is No Booking History
-                  </Text>
-                </Box>
-              ) : (
-              <FlatList
-                data={data}
-                keyExtractor={(item) => item.BookingID}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={{ width: "100%" }}
-                    onPress={() =>
-                      navigation.navigate("ScheduleDetail", {
-                        bookedDate: item.bookedDate,
-                        bookedTime: item.bookedTime,
-                        bookedFor: item.bookedFor,
-                        userName: item.userName,
-                        userImg: item.userImg,
-                        specialty: item.specialty,
-                        exp: item.exp,
-                      })
-                    }
-                  >
-                    <Box
-                      justifyContent="space-between"
-                      backgroundColor={activeColors.secondary}
-                      p={3}
-                      mb={3}
-                      flexDirection="row"
-                      alignItems="center"
-                    >
-                      <Box pt={4} pb={4}>
-                          <Image
-                            w={70}
-                            h={70}
-                            rounded={35}
-                            source={{ uri: item.userImg }}
-                            alt="MUA"
-                          />
-                      </Box>
-                      <Box
-                        justifyContent={"center"}
-                        p={"15"}
-                        pl={0}
-                        ml={"3"}
-                        w={"300"}
-                      >
-                        <Flex direction="column">
-                          <Box mb={"1"}>
-                            <Flex direction="row" justifyContent="space-between">
-                              <Box>
-                                <Text
-                                  fontSize={"14"}
-                                  fontWeight={"bold"}
-                                  color={activeColors.tint}
-                                >
-                                  {item.userName}
-                                </Text>
-                              </Box>
-                              <Box mr={8}>
-                                <Menu>
-                                  <MenuTrigger>
-                                    <Icon
-                                      as={Ionicons}
-                                      name="ellipsis-vertical-outline"
-                                      size={6}
-                                      color={activeColors.tertiary}
-                                    />
-                                  </MenuTrigger>
-                                  <MenuOptions>
-                                    <MenuOption
-                                      text="Cancel"
-                                      onSelect={() => handleCancelBooking(item.userName)}
-                                    />
-                                  </MenuOptions>
-                                </Menu>
-                              </Box>
-                            </Flex>
-                          </Box>
-                          <Text
-                            fontSize={"14"}
-                            mr={10}
-                            color={activeColors.tertiary}
-                          >
-                            {item.specialty}
-                          </Text>
-                        </Flex>
-                      </Box>
-                    </Box>
-                    {console.log("URL Gambar:", item.userImg)}
-                  </TouchableOpacity>
-                )}
-              />
-            )}
-            </Box>
-          </Center>
-        </Box>
-      </Box>
-
-      {/* Tombol "Go to Profile" yang dimasukkan ke dalam Box */}
-      <Box backgroundColor={activeColors.primary} flexDirection={"row"} justifyContent={"center"}  mb={20}>
-        <TouchableOpacity
-          onPress={handleProfileNavigation}
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        backgroundColor={activeColors.secondary}
+      >
+        <MenuProvider
           style={{
-            backgroundColor: "#A01437",
-            paddingVertical: 12,
-            paddingHorizontal: 16,
-            width: "85%",
-            borderRadius: 10,
-            shadowColor: "#A01437",
-            shadowOffset: {
-              width: 0,
-              height: 4,
-            },
-            shadowOpacity: 0.3,
-            shadowRadius: 4,
-            elevation: 8,
+            flex: 1,
+            backgroundColor: "#fff",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <Text
-            color="white"
-            fontSize="xl"
-            textAlign="center"
-          >
-            Go To Profile
-          </Text>
-        </TouchableOpacity>
-      </Box>
-    </MenuProvider>
-  );
+          <Box flex={1}>
+            <Box backgroundColor={activeColors.secondary} flex={1}>
+              <Center>
+                <Box mt={4}>
+                  {data.length === 0 ? (
+                    <Box
+                      flex={1}
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Text fontSize="18" textAlign="center">
+                        There is No Booking History
+                      </Text>
+                    </Box>
+                  ) : (
+                    <FlatList
+                      data={data}
+                      keyExtractor={(item) => item.BookingID}
+                      renderItem={({ item }) => (
+                      <TouchableOpacity
+                        style={{ width: "100%" }}
+                        onPress={() =>
+                          navigation.navigate("ScheduleDetail", {
+                            bookedDate: item.bookedDate,
+                            bookedTime: item.bookedTime,
+                            bookedFor: item.bookedFor,
+                            userName: item.userName,
+                            userImg: item.userImg,
+                            specialty: item.specialty,
+                            exp: item.exp,
+                          })
+                        }
+                      >
+                        <Box
+                          justifyContent="space-between"
+                          backgroundColor={activeColors.primary}
+                          p={3}
+                          mb={3}
+                          flexDirection="row"
+                          alignItems="center"
+                        >
+                          <Box
+                            justifyContent={"center"}
+                            p={"15"}
+                            pl={0}
+                            w={"400"}
+                          >
+                            <Flex direction="column" >
+                              <Box mb={"1"}>
+                                <Flex direction="row" justifyContent="space-between">
+                                  <Box>
+                                    <Text
+                                      fontSize={"14"}
+                                      fontWeight={"bold"}
+                                      color={activeColors.tint}
+                                    >
+                                      {item.userName}
+                                    </Text>
+                                  </Box>
+                                  <Box mr={8}>
+                                    <Menu>
+                                      <MenuTrigger>
+                                        <Icon
+                                          as={Ionicons}
+                                          name="ellipsis-vertical-outline"
+                                          size={6}
+                                          color={activeColors.tertiary}
+                                        />
+                                      </MenuTrigger>
+                                      <MenuOptions>
+                                        <MenuOption
+                                          text="Cancel"
+                                          onSelect={() => handleCancelBooking(item.userName)}
+                                        />
+                                      </MenuOptions>
+                                    </Menu>
+                                  </Box>
+                                </Flex>
+                              </Box>
+                              <Text
+                                fontSize={"14"}
+                                mr={10}
+                                color={activeColors.tertiary}
+                              >
+                                {item.specialty}
+                              </Text>
+                            </Flex>
+                          </Box>
+                        </Box>
+                      </TouchableOpacity>
+                    )}
+                    />
+                  )}
+                </Box>
+              </Center>
+            </Box>
+            {/* Tombol "Go to Profile" yang dimasukkan ke dalam Box */}
+            <Box
+              backgroundColor={activeColors.secondary}
+              flexDirection={"row"}
+              justifyContent={"center"}
+              mb={10}
+            >
+              <TouchableOpacity
+                onPress={handleProfileNavigation}
+                style={{
+                  backgroundColor: "#A01437",
+                  paddingVertical: 12,
+                  paddingHorizontal: 16,
+                  width: "85%",
+                  borderRadius: 10,
+                  shadowColor: "#A01437",
+                  shadowOffset: {
+                    width: 0,
+                    height: 4,
+                  },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 4,
+                  elevation: 8,
+                }}
+              >
+                <Text color="white" fontSize="xl" textAlign="center">
+                  Go To Profile
+                </Text>
+              </TouchableOpacity>
+            </Box>
+          </Box>
+        </MenuProvider>
+      </ScrollView>
+    );
 };
 
 export default HistoryBooking;

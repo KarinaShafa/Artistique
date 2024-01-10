@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   Box,
   ScrollView,
@@ -79,24 +79,41 @@ const Data = [
 ];
 
 const MUA = () => {
-  // const theme = { mode: "dark" };
   const { theme, updateTheme } = useContext(ThemeContext);
   let activeColors = colors[theme.mode];
 
   const [search, setSearch] = useState("");
+  const [filteredData, setFilteredData] = useState(Data);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    // Fungsi untuk melakukan pencarian berdasarkan nama dan specialty
+    const searchMUA = () => {
+      const lowercasedSearch = search.toLowerCase();
+      const filteredMUA = Data.filter(
+        (item) =>
+          item.userName.toLowerCase().includes(lowercasedSearch) ||
+          item.specialty.toLowerCase().includes(lowercasedSearch)
+      );
+      setFilteredData(filteredMUA);
+    };
+
+    // Panggil fungsi searchMUA setiap kali nilai search berubah
+    searchMUA();
+  }, [search]);
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        Keyboard.dismiss(); //menghilangkan keyboard jika user menekan layar di luar keyboard
+        Keyboard.dismiss();
       }}
     >
       <Box flex={1}>
         <Box flex={1} pl={5} pr={5} backgroundColor={activeColors.primary}>
           <Center>
             <Box mt={40}>
-              {/* search */}
-              <HStack alignItems="center" space={2} p={2} rounded="md"> 
+              {/* Search */}
+              <HStack alignItems="center" space={2} p={2} rounded="md">
                 <Input
                   placeholder="Search MUA"
                   color={activeColors.tint}
@@ -104,6 +121,8 @@ const MUA = () => {
                   size="lg"
                   w={"87%"}
                   rounded={12}
+                  value={search}
+                  onChangeText={(text) => setSearch(text)}
                 />
                 <Box backgroundColor={"#A01437"} p={2} rounded={6}>
                   <Icon as={Ionicons} name="search" size={6} color={"white"} />
@@ -112,7 +131,7 @@ const MUA = () => {
             </Box>
             <Box mt={4}>
               <FlatList
-                data={Data}
+                data={filteredData} // filteredData untuk menampilkan hasil pencarian
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                   <TouchableOpacity style={{ width: "100%" }}>
@@ -138,7 +157,12 @@ const MUA = () => {
                         >
                           <Flex direction="column">
                             <Box mb={"1"}>
-                              <Flex direction="row" justifyContent="space-between" alignItems="center" width="100%">
+                              <Flex
+                                direction="row"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                width="100%"
+                              >
                                 <HStack alignItems="center" space={32} width="70%">
                                   <HStack>
                                     <Text
@@ -149,9 +173,9 @@ const MUA = () => {
                                       {item.userName}
                                     </Text>
                                   </HStack>
-                                  <HStack alignItems="center" space={2}>
+                                  <HStack alignItems="center" space={2} color={activeColors.tertiary}> 
                                     {item.star}
-                                    <Text>{item.text}</Text> 
+                                    <Text color={activeColors.tertiary}>{item.text}</Text>
                                   </HStack>
                                 </HStack>
                               </Flex>
@@ -178,7 +202,7 @@ const MUA = () => {
                                       userName: item.userName,
                                       userImg: item.userImg,
                                       text: item.text,
-                                      specialty: item.specialty,                            
+                                      specialty: item.specialty,
                                       exp: item.exp,
                                       reviews: item.reviews,
                                       about: item.about,
@@ -187,13 +211,13 @@ const MUA = () => {
                                   })
                                 }
                               >
-                                <Text color={"#A01437"} fontWeight={600}>
+                                <Text color={activeColors.tertiary} fontWeight={600}>
                                   More
                                   <Icon
                                     as={Ionicons}
                                     name="chevron-forward-outline"
                                     size={4}
-                                    ml="2"                                    
+                                    ml="2"
                                     color={"#A01437"}
                                   />
                                 </Text>
@@ -209,7 +233,6 @@ const MUA = () => {
             </Box>
           </Center>
         </Box>
-        {/* </ScrollView> */}
       </Box>
     </TouchableWithoutFeedback>
   );
