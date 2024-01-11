@@ -15,6 +15,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   Keyboard,
+  Alert,
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { ThemeContext } from "../../../component/themeContext";
@@ -32,7 +33,7 @@ import {
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../../../../firebase-config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import bcrypt from 'bcryptjs';
+import { Base64 } from "js-base64"; 
 
 // import SvgIcon from '../common/assets/images/SvgIcon';
 
@@ -49,19 +50,39 @@ const ResetPasswordScreen = ({ navigation }) => {
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
 
+  const encrypt = (text, shift) => {
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
+      let char = text[i];
+      if (char.match(/[a-z]/i)) {
+        let code = text.charCodeAt(i);
+        if (code >= 65 && code <= 90) {
+          char = String.fromCharCode(((code - 65 + shift) % 26) + 65);
+        } else if (code >= 97 && code <= 122) {
+          char = String.fromCharCode(((code - 97 + shift) % 26) + 97);
+        }
+      }
+      result += char;
+    }
+    return result;
+  };
 
+  const decrypt = (text, shift) => {
+    return encrypt(text, (26 - shift) % 26);
+  };
+  
   const [windowDimensions, setWindowDimensions] = useState(
     Dimensions.get("window")
   );
 
-  const [userDataa, setUserDataa] = useState(null);
+  const [userData, setUserData] = useState(null);
   useEffect(() => {
     // Ambil data dari AsyncStorage saat komponen dipasang (mounted)
     AsyncStorage.getItem("credentials")
       .then((data) => {
         if (data) {
           const credentials = JSON.parse(data);
-          setUserDataa(credentials);
+          setUserData(credentials);
         }
       })
       .catch((error) => console.log(error));
@@ -82,20 +103,37 @@ const ResetPasswordScreen = ({ navigation }) => {
     }
 
     try {
-      console.log(userDataa);
+      console.log(userData);
       // 1. Verifikasi Password Saat Ini
-      const userId = userDataa.uid;
+      const userId = userData.uid;
       const userCollection = collection(firestore, "users");
       const userDocRef = doc(userCollection, userId);
-      const hashedPasswordFromDB = userDataa.password;
-
-      // const bcrypt = require("bcryptjs");
-      const passwordMatch = await bcrypt.compare(
-        currentPassword,
-        hashedPasswordFromDB
+      const hashedPasswordFromDB = userData.password;
+      const passwordMatch = query(
+        userCollection,
+        where("password", "==", hashedPasswordFromDB)
       );
+      const snapshotByPassword = await getDocs(passwordMatch);
+      
+      if (snapshotByPassword.empty) {
+        Alert.alert("Error", "Password saat ini tidak cocok.");
+        return;
+      }
 
-      if (!passwordMatch) {
+      // Decode password (mengubah password menjadi enkripsi)
+      console.log("From DB: ", hashedPasswordFromDB);
+      const Decodetext = Base64.decode(hashedPasswordFromDB);
+      console.log("After Decode: ", Decodetext);
+  
+      // Compare password ( mengcompare password)
+      const compare = (text, encryptedText, shift) => {
+        const decryptedText = decrypt(encryptedText, shift);
+        return text === decryptedText;
+      };
+  
+      const passwordMatch2 = compare(currentPassword, Decodetext, 3);
+  
+      if (!passwordMatch2) {
         Alert.alert("Error", "Password saat ini tidak cocok.");
         return;
       }
@@ -109,23 +147,14 @@ const ResetPasswordScreen = ({ navigation }) => {
         return;
       }
 
-      bcrypt.setRandomFallback((len) => {
-        // Menghasilkan nilai acak (bisa menggunakan metode lain yang tersedia)
-        const randomBytes = new Array(len);
-        for (let i = 0; i < len; i++) {
-          randomBytes[i] = Math.floor(Math.random() * 256);
-        }
-        return randomBytes;
-      });
-
-      // const saltRounds = 10;
-      const salt = bcrypt.genSaltSync(10);
-
-      const hashedNewPassword = await bcrypt.hash(newPassword, salt);
-
+      // Enkripsi password baru
+      const shiftAmount = 3;
+      const encryptedPassword = encrypt(newPassword, shiftAmount);
+      const hashedNewPassword = Base64.encode(encryptedPassword);
+  
       // Update password baru yang terenkripsi ke Firestore
       await updateDoc(userDocRef, { password: hashedNewPassword });
-
+  
       Alert.alert("Success", "Password Anda berhasil direset");
       navigation.goBack();
     } catch (error) {
@@ -196,6 +225,10 @@ const ResetPasswordScreen = ({ navigation }) => {
                           color="black"
                         />
                       }
+                      value={currentPassword}
+                      onChangeText={(currentPassword) =>
+                        setCurrentPassword(currentPassword)
+                      }
                       placeholder="Current Password"
                       placeholderTextColor={"black"}
                       backgroundColor={"#F3D2CB"}
@@ -233,7 +266,11 @@ const ResetPasswordScreen = ({ navigation }) => {
                             color="black"
                           />
                         </Pressable>
-                      }
+                          }
+                          value={newPassword}
+                          onChangeText={(newPassword) =>
+                            setNewPassword(newPassword)
+                          }
                       placeholder="New Password"
                       placeholderTextColor={"black"}
                       backgroundColor={"#F3D2CB"}
@@ -264,13 +301,19 @@ const ResetPasswordScreen = ({ navigation }) => {
                           <Icon
                             as={MaterialIcons}
                             name={
-                              showConfirmPassword ? "visibility" : "visibility-off"
+                              showConfirmPassword 
+                              ? "visibility" 
+                              : "visibility-off"
                             }
                             size={5}
                             mr="2"
                             color="black"
                           />
                         </Pressable>
+                        }
+                        value={newPassword2}
+                        onChangeText={(newPassword2) =>
+                          setNewPassword2(newPassword2)
                       }
                       placeholder="Confirm Password"
                       placeholderTextColor={"black"}
@@ -289,7 +332,13 @@ const ResetPasswordScreen = ({ navigation }) => {
                         backgroundColor: "#EDA99A",
                         borderRadius: 12,
                       }}
-                      onPress={() => navigation.goBack()}
+                      onPress={() =>
+                        handleResetButton(
+                          currentPassword,
+                          newPassword,
+                          newPassword2
+                          )
+                        }
                     >
                       <Text
                         textAlign="center"
