@@ -97,14 +97,23 @@ const MUADetails = () => {
         <Box bg={activeColors.primary} p={2}>
           <Center>
             <TouchableOpacity
-              onPress={() => {
-                // dialihkan ke halaman roomchat
+              // onPress={() => {
+              //   // dialihkan ke halaman roomchat
+              //   navigation.navigate("RoomChat", {
+              //     userName: userName,
+              //     messageText: "Welcome to Artistique",
+              //     userImg: userImg,
+              //   });
+              // }}
+              onPress={() =>
                 navigation.navigate("RoomChat", {
-                  userName: userName,
-                  messageText: "Welcome to Artistique",
-                  userImg: userImg,
-                });
-              }}
+                  MUAData: {
+                    userName: userName,
+                    userImg: userImg,
+                  },
+                })
+              }
+              
               style={{
                 width: "85%",
                 backgroundColor: "#A01437",
