@@ -24,7 +24,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   const [windowDimensions, setWindowDimensions] = useState(
     Dimensions.get("window")
   );
-
+// komponen
   useEffect(() => {
     const updateDimensions = () => {
       setWindowDimensions(Dimensions.get("window"));
