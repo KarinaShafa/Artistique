@@ -15,8 +15,22 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   Keyboard,
+  Alert,
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+// import * as firebase from "firebase";
+import * as MailComposer from "expo-mail-composer";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "../../../../firebase-config";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
+import emailjs from "@emailjs/browser";
+import { Base64 } from "js-base64"; 
 
 // import SvgIcon from '../common/assets/images/SvgIcon';
 
@@ -24,7 +38,122 @@ const ForgotPasswordScreen = ({ navigation }) => {
   const [windowDimensions, setWindowDimensions] = useState(
     Dimensions.get("window")
   );
-// komponen
+
+  const DB = initializeApp(firebaseConfig);
+  const firestore = getFirestore(DB);
+
+  const [email, setEmail] = useState("");
+
+  const encrypt = (text, shift) => {
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
+      let char = text[i];
+      if (char.match(/[a-z]/i)) {
+        let code = text.charCodeAt(i);
+        if (code >= 65 && code <= 90) {
+          char = String.fromCharCode(((code - 65 + shift) % 26) + 65);
+        } else if (code >= 97 && code <= 122) {
+          char = String.fromCharCode(((code - 97 + shift) % 26) + 97);
+        }
+      }
+      result += char;
+    }
+    return result;
+  };
+
+  // Fungsi Dekripsi untuk metode penggeseran karakter (caesar cipher)
+  const decrypt = (text, shift) => {
+    return encrypt(text, (26 - shift) % 26);
+  };
+
+  // function generateNewPassword() {
+  //   const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  //   const symbols = "@#";
+  //   const numbers = "0123456789";
+
+  //   const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+  //   const letterLength = Math.random() > 0.5 ? 5 : 6;
+  //   const numLength = letterLength === 5 ? 2 : 1;
+
+  //   let newPassword = symbol;
+
+  //   for (let i = 0; i < letterLength; i++) {
+  //     const randomIndex = Math.floor(Math.random() * letters.length);
+  //     newPassword += letters[randomIndex];
+  //   }
+
+  //   for (let i = 0; i < numLength; i++) {
+  //     const randomIndex = Math.floor(Math.random() * numbers.length);
+  //     newPassword += numbers[randomIndex];
+  //   }
+
+  //   return newPassword;
+  // }
+
+  const handleForgotButton = async (email) => {
+    if (email.trim() === "") {
+      Alert.alert("Error", "Mohon isi Email terlebih dahulu");
+    } else {
+      try {
+
+        const usersCollection = collection(firestore, "users");
+        const queryByEmail = query(
+          usersCollection,
+          where("email", "==", email)
+        );
+        const snapshotByEmail = await getDocs(queryByEmail);
+
+        if (snapshotByEmail.empty) {
+          Alert.alert("Error", "Email tidak terdaftar");
+        }
+
+        let password = "";
+
+        snapshotByEmail.forEach((doc) => {
+          const userData = doc.data();
+          // console.log(userData);
+          const decodePass = Base64.decode(userData.password);
+          const decryptedPass = decrypt(decodePass, 3);
+
+          // 2. Kirim email dengan password yang ditemukan
+          // await MailComposer.composeAsync({
+          //   recipients: [email],
+          //   subject: "Forgot Password",
+          //   body: `Terimakasih sudah mengirimkan request forgot password kepada kami dan sabar menunggu respon dari kami. ini adalah password baru kamu, Password : ${password} dimohon untuk berhati-hati terhadap password anda karena ini merupakan privasi, dan untuk lebih di ingat-ingat lagi untuk kedepannya. Terimakasih`,
+          // });
+
+          const serviceId = "service_hp9zqkt";
+          const templateId = "template_adu3hof";
+          const publicKey = "voV7WTsXxxE0Z1kqE";
+
+          const templateParams = {
+            from_name: "Artistique Team",
+            from_email: "Artistique@gmail.com",
+            to_name: userData.name,
+            to_email: email,
+            message: `Password lama kamu: ${decryptedPass}`, 
+          };
+
+          emailjs
+            .send(serviceId, templateId, templateParams, publicKey)
+            .then((response) => {
+              console.log("Email sent successfully !", response);
+              console.log(userData);
+              Alert.alert("Success", "Email berhasil dikirim");
+              navigation.navigate("Login");
+            })
+            .catch((error) => {
+              console.log("Error sending email: ", error);
+            });
+
+        });
+      } catch (error) {
+        console.error("Error:", error);
+        Alert.alert("Error", "Gagal mengirim email. Silakan coba lagi.");
+      }
+    }
+  };
+
   useEffect(() => {
     const updateDimensions = () => {
       setWindowDimensions(Dimensions.get("window"));
@@ -84,9 +213,11 @@ const ForgotPasswordScreen = ({ navigation }) => {
                           color="black"
                         />
                       }
+                      value={email}
+                      onChangeText={(email) => setEmail(email)}
                       placeholder="Email"
                       placeholderTextColor={"black"}
-                      backgroundColor={"#F3D2CB"}
+                      backgroundColor={"#E4F1FF"}
                       borderWidth={0}
                       rounded={6}
                       fontSize={16}
@@ -99,7 +230,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
                         backgroundColor: "#EDA99A",
                         borderRadius: 12,
                       }}
-                      onPress={() => navigation.navigate("Login")}
+                      onPress={() => handleForgotButton(email)}
+                      // onPress={() => sendEmail()}
                     >
                       <Text
                         textAlign="center"
