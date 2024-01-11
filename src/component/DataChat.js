@@ -5,7 +5,7 @@ const Messages = [
       userImg: require("../../assets/Chat/MUA1.jpg"),
       messageTime: "4 mins ago",
       messageText:
-        "Hey there!",
+        "Welcome to Artistique",
     },
     {
       id: "2",
@@ -21,7 +21,7 @@ const Messages = [
       userImg: require("../../assets/Chat/MUA3.jpg"),
       messageTime: "1 hours ago",
       messageText:
-        "Hey there!",
+        "Welcome to Artistique",
     },
     {
       id: "4",
@@ -37,7 +37,7 @@ const Messages = [
       userImg: require("../../assets/Chat/MUA5.jpg"),
       messageTime: "2 days ago",
       messageText:
-        "Hey there!",
+        "Welcome to Artistique",
     },
   ];
 

@@ -1,5 +1,5 @@
-import { useCallback, useContext, useState } from "react";
-import { Box, Text, Center } from "native-base";
+import { useCallback, useContext, useState,  useEffect} from "react";
+import { Box, Text, Center, NativeBaseProvider } from "native-base";
 import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
 import {
@@ -12,6 +12,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TouchableOpacity, Alert } from "react-native";
+// import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 const RoomChatScreen = () => {
@@ -20,39 +23,70 @@ const RoomChatScreen = () => {
   let activeColors = colors[theme.mode];
 
   const route = useRoute();
+  const {MUAData} = route.params;
+  // const userId = MUAData.id;
+  const userId = MUAData.userName;
   const initialMessageText = route.params ? route.params.messageText : "";
   const initialUserImg = route.params ? route.params.userImg : null;
 
   // menyimpan isi pesan (isi pesan MUA yang dimunculkan)
   const [messages, setMessages] = useState([
-    {
-      _id: 1,
-      text: "Hello",
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: "Teks",
-        avatar: initialUserImg,
-      },
-    },
-    {
-      _id: 2,
-      text: initialMessageText,
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: "Teks2",
-        avatar: initialUserImg,
-      },
-    },
+    // {
+    //   _id: 1,
+    //   text: "Hello",
+    //   createdAt: new Date(),
+    //   user: {
+    //     _id: 2,
+    //     name: "Teks",
+    //     avatar: initialUserImg,
+    //   },
+    // },
+    // {
+    //   _id: 2,
+    //   text: initialMessageText,
+    //   createdAt: new Date(),
+    //   user: {
+    //     _id: 2,
+    //     name: "Teks2",
+    //     avatar: initialUserImg,
+    //   },
+    // },
     
   ]);
+
+  useEffect(() => {
+    loadChatHistory();
+  }, [userId]);
+  
+  const loadChatHistory = async () => {
+    try {
+      const chatHistory = await AsyncStorage.getItem(`chat_${userId}`);
+      if (chatHistory) {
+        setMessages(JSON.parse(chatHistory));
+      }
+    } catch (error) {
+      console.error("error loading chat history:", error);
+    }
+  };
 
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
   }, []);
+
+  useEffect(() => {
+    saveChatHistory();
+  }, [messages]);
+
+  const saveChatHistory = async () => {
+    try {
+      await AsyncStorage.setItem(`chat_${userId}`, JSON.stringify(messages));
+    } catch (error) {
+      console.error("Error saving chat history", error);
+    }
+  };
+
 
   // scroll down
   const scrollToBottomComponent = () => {
@@ -141,29 +175,86 @@ const RoomChatScreen = () => {
 		);
 	};
 
+  // fungsi untuk hapus pesan
+  const clearAllMessages = () => {
+    // Hapus semua pesan
+    setMessages([]);
+    // Hapus pesan dari penyimpanan lokal
+    clearChatHistory();
+  };
+  
+  const clearChatHistory = async () => {
+    try {
+      await AsyncStorage.removeItem(`chat_${userId}`);
+    } catch (error) {
+      console.error("Error clearing chat history", error);
+    }
+  };
+
+  // alert
+  const showDeleteConfirmation = () => {
+    Alert.alert(
+      'Hapus Pesan',
+      'Hapus semua pesan di sini?',
+      [
+        {
+          text: 'Batal',
+          style: 'cancel',
+        },
+        {
+          text: 'Ya',
+          onPress: () => clearAllMessages(),
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+  
+  
+
   return (
+    <NativeBaseProvider>
+        <Box flex={1} backgroundColor={"#fff"}>
+          <Box
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="center"
+              padding={5}
+            >
+              <TouchableOpacity onPress={showDeleteConfirmation}
+              style={{
+                position: 'absolute',
+                top: 10,
+                right: 18,
+              }}
+              >
+              <FontAwesome name="trash" size={20} color="#808080" />
+              </TouchableOpacity>
+            </Box>
+
+          <GiftedChat flex={1}
+            messages={sortedMessages}
+            onSend={(messages) => onSend(messages)}
+            user={{
+              _id: 1,
+            }}
+            renderBubble={renderBubble}
+            alwaysShowSend
+            renderSend={renderSend}
+            scrollToBottom
+            scrollToBottomComponent={scrollToBottomComponent}
+            messagesContainerStyle={{
+              paddingBottom: 100,
+              paddingTop:10,
+              backgroundColor: activeColors.secondary,
+            }}
+            renderInputToolbar={renderInputToolbar}
+            renderTime={renderTime}
+          />
+        </Box>
+    </NativeBaseProvider>
     
-      <Box flex={1} backgroundColor={"#fff"}>
-        <GiftedChat flex={1}
-          messages={sortedMessages}
-          onSend={(messages) => onSend(messages)}
-          user={{
-            _id: 1,
-          }}
-          renderBubble={renderBubble}
-          alwaysShowSend
-          renderSend={renderSend}
-          scrollToBottom
-          scrollToBottomComponent={scrollToBottomComponent}
-          messagesContainerStyle={{
-            paddingBottom: 100,
-            paddingTop:10,
-            backgroundColor: activeColors.secondary,
-          }}
-          renderInputToolbar={renderInputToolbar}
-          renderTime={renderTime}
-        />
-      </Box>
+      
     
   );
 };
