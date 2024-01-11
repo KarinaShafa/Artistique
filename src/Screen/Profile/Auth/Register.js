@@ -37,7 +37,7 @@ import {
   // import bcrypt from 'bcryptjs';
   // import { compare, hash } from "react-native-simple-bcrypt";
   import { Base64 } from "js-base64"; 
-  // import { sha1 } from 'react-native-sha1';
+
   
   const DB = initializeApp(firebaseConfig);
   const auth = getAuth(DB);
