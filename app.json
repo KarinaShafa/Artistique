@@ -4,12 +4,12 @@
     "slug": "Artistique",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Icon-Artistique.png",
+    "icon": "./assets/IconArtistique.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Artistique-Splash.png",
+      "image": "./assets/SplashArtistique.png",
       "resizeMode": "contain",
-      "backgroundColor": "#A01437"
+      "backgroundColor": "#FFD3C9"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Icon-Artistique.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/IconArtistique2.png",
+        "backgroundColor": "#FFD3C9"
+      },
+      "package": "com.aalfinaa2.Artistique"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5d3b3dff-2591-480e-8e46-5aa8f6da57a1"
+      }
     }
   }
 }

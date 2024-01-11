@@ -11,7 +11,7 @@ import HomeScreen from "../Screen/Home";
 import ProfileScreen from "../Screen/Profile/ProfileScreen";
 import MUA from "../Screen/MUA";
 import BookedScreen from "../Screen/Booked";
-import HistoryBooked from "../Screen/HistoryBooked"; 
+import PesanScreen from "../Screen/Chat"; 
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -165,8 +165,8 @@ const MenuBar = () => {
         />
 
         <Tab.Screen
-          name="HistoryBooked"
-          component={HistoryBooked}
+          name="Chat"
+          component={PesanScreen}
           options={({ navigation }) => ({
             headerStyle: {
               backgroundColor: activeColors.primary
@@ -182,10 +182,10 @@ const MenuBar = () => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                onPress={() => navigation.navigate("HistoryBooked")}
+                onPress={() => navigation.navigate("Chat")}
               >
                 <Icon
-                  name="calendar"
+                  name="chatbubble"
                   size={size}
                   color={
                     focused ? activeColors.iconFocus : activeColors.barIcon
@@ -195,7 +195,7 @@ const MenuBar = () => {
                   fontSize={12}
                   style={{ color: focused ? activeColors.iconFocus : activeColors.barIcon }}
                 >
-                  History Booked
+                  Chat
                 </Text>
               </TouchableOpacity>
             ),

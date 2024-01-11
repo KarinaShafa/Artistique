@@ -37,7 +37,7 @@ import {
   // import bcrypt from 'bcryptjs';
   // import { compare, hash } from "react-native-simple-bcrypt";
   import { Base64 } from "js-base64"; 
-  // import { sha1 } from 'react-native-sha1';
+
   
   const DB = initializeApp(firebaseConfig);
   const auth = getAuth(DB);
@@ -384,62 +384,6 @@ import {
                 Already have an account
               </Text>
             </TouchableOpacity>
-          </Center>
-          <Center>
-            <Spacer>
-              <Text fontSize={16} color={"red.300"} fontWeight={"bold"}>
-                Or continue with
-              </Text>
-            </Spacer>
-          </Center>
-          <Center>
-            <Box>
-              <Stack
-                direction={{
-                  base: "row",
-                  md: "row",
-                }}
-                space={4}
-                mt={2}
-              >
-                <Button
-                  variant="outline"
-                  leftIcon={
-                    <Icon
-                      as={Ionicons}
-                      name="logo-google"
-                      size="md"
-                      color="gray"
-                      colorScheme="light"
-                    />
-                  }
-                ></Button>
-                <Button
-                  variant="outline"
-                  endIcon={
-                    <Icon
-                      as={Ionicons}
-                      name="logo-apple"
-                      size="md"
-                      color="gray"
-                      colorScheme="light"
-                    />
-                  }
-                ></Button>
-                <Button
-                  variant="outline"
-                  endIcon={
-                    <Icon
-                      as={Ionicons}
-                      name="logo-facebook"
-                      size="md"
-                      color="gray"
-                      colorScheme="light"
-                    />
-                  }
-                ></Button>
-              </Stack>
-            </Box>
           </Center>
         </Box>
       </TouchableWithoutFeedback>

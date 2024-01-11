@@ -12,7 +12,6 @@ import {
 } from "native-base";
 import { TouchableOpacity, ImageBackground } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import ScheduleBooked from "../component/ScheduleBooked";
 import Header from "../component/Header";
 import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
@@ -43,7 +42,7 @@ const Home = () => {
     if (props === "Search MUA") {     //kondisi
       navigation.navigate("MUA");
     } else if (props === "QnA") {
-      navigation.navigate("Message");
+      navigation.navigate("Chat");
     } else if (props === "Article") {
       setDataArticleView(DataArticle);
       setDataRecomendationView([]); // Reset dataRecomendationView saat memilih kategori Article
@@ -53,6 +52,24 @@ const Home = () => {
     }
   };
   
+  // Fungsi untuk melakukan pencarian berdasarkan judul artikel
+  const searchArticles = () => {
+    if (!search) {
+      // Jika search kosong, tampilkan semua artikel
+      setDataArticleView(DataArticle);
+    } else {
+      // Jika search tidak kosong, filter artikel berdasarkan judul
+      const filteredArticles = DataArticle.filter((article) =>
+        article.judul.toLowerCase().includes(search.toLowerCase())
+      );
+      setDataArticleView(filteredArticles);
+    }
+  };
+
+  useEffect(() => {
+    // Panggil fungsi searchArticles setiap kali nilai search berubah
+    searchArticles();
+  }, [search]);
 
 
   return (
@@ -70,9 +87,8 @@ const Home = () => {
         backgroundColor={activeColors.primary}
       >
         <Header search={search} setSearch={setSearch} />
-        <ScheduleBooked />
         <Box>
-          <Flex direction="row" mt={30}>
+          <Flex direction="row">
             <Text color={"#8A527D"} fontWeight={"bold"}>
               Category
             </Text>
@@ -82,9 +98,6 @@ const Home = () => {
                 flex: 1,
               }}
             >
-              <Text color={"#A01437"} fontWeight={"bold"}>
-                View More
-              </Text>
             </TouchableOpacity>
           </Flex>
         </Box>
@@ -291,7 +304,5 @@ const Home = () => {
     </Box>
   );
 };
-
-const HomeScreen = () => <Home />;
 
 export default Home;

@@ -162,6 +162,9 @@ const ProfileScreen = () => {
     else if (id === "ChangePassword") {
       navigation.navigate("ResetPassword")
     }
+    else if (id === "History") {
+      navigation.navigate("HistoryBooking")
+    }
     else if (id === "LogOut") {
       if (theme.mode === "dark") {
         updateTheme();

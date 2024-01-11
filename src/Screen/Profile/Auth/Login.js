@@ -297,62 +297,6 @@ import {
               </Text>
             </TouchableOpacity>
           </Center>
-          <Center>
-            <Spacer mt="36">
-              <Text fontSize={16} color={"red.300"} fontWeight={"bold"}>
-                Or continue with
-              </Text>
-            </Spacer>
-          </Center>
-          <Center>
-            <Box>
-              <Stack
-                direction={{
-                  base: "row",
-                  md: "row",
-                }}
-                space={4}
-                mt={2}
-              >
-                <Button
-                  variant="outline"
-                  leftIcon={
-                    <Icon
-                      as={Ionicons}
-                      name="logo-google"
-                      size="md"
-                      color="gray"
-                      colorScheme="light"
-                    />
-                  }
-                ></Button>
-                <Button
-                  variant="outline"
-                  endIcon={
-                    <Icon
-                      as={Ionicons}
-                      name="logo-apple"
-                      size="md"
-                      color="gray"
-                      colorScheme="light"
-                    />
-                  }
-                ></Button>
-                <Button
-                  variant="outline"
-                  endIcon={
-                    <Icon
-                      as={Ionicons}
-                      name="logo-facebook"
-                      size="md"
-                      color="gray"
-                      colorScheme="light"
-                    />
-                  }
-                ></Button>
-              </Stack>
-            </Box>
-          </Center>
         </Box>
       </TouchableWithoutFeedback>
     );

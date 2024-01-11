@@ -1,17 +1,10 @@
-import React, { useContext } from "react";
+import { useContext, useEffect, React, useState } from "react";
 import { Box, Center, FlatList, Flex, Image, Text, HStack, Icon, Input } from "native-base";
 import colors from "../component/theme";
 import { ThemeContext } from "../component/themeContext";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import {
-  Menu,
-  MenuOption,
-  MenuOptions,
-  MenuProvider,
-  MenuTrigger,
-} from "react-native-popup-menu";
 import BookedDetail from "./BookedDetail";
 
 const Data = [
@@ -57,125 +50,112 @@ const BookedScreen = () => {
   let activeColors = colors[theme.mode];
 
   const navigation = useNavigation();
+  const [search, setSearch] = useState("");
+  const [filteredData, setFilteredData] = useState(Data);
+
+  useEffect(() => {
+    // Fungsi untuk melakukan pencarian berdasarkan nama dan speciality
+    const searchMUA = () => {
+      const lowercasedSearch = search.toLowerCase();
+      const filteredMUA = Data.filter(
+        (item) =>
+          item.userName.toLowerCase().includes(lowercasedSearch) ||
+          item.specialty.toLowerCase().includes(lowercasedSearch)
+      );
+      setFilteredData(filteredMUA);
+    };
+
+    // Panggil fungsi searchMUA setiap kali nilai search berubah
+    searchMUA();
+  }, [search]);
 
   return (
-    <MenuProvider
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Box flex={1}>
-        <Box flex={1} backgroundColor={activeColors.primary}>
-          <Center>
-            <Box mt={4}>
-              <HStack alignItems="center" space={2} p={2} mt={10} rounded="md">
-                <Input
-                  placeholder="Search MUA"
-                  color={activeColors.tint}
-                  placeholderTextColor={activeColors.tint}
-                  size="lg"
-                  w={"87%"}
-                  rounded={12}
-                />
-                <Box backgroundColor={"#A01437"} p={2} rounded={6}>
-                  <Icon as={Ionicons} name="search" size={6} color={"white"} />
-                </Box>
-              </HStack>
-              <FlatList
-                data={Data}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={{ width: "100%" }}
-                    onPress={() => navigation.navigate("BookedDetail", item)} // Pass the makeup artist data as a parameter
-                  >
-                    <Box
-                      justifyContent="space-between"
-                      backgroundColor="white"
-                      p={3}
-                      mb={3}
-                      flexDirection="row"
-                      alignItems="center"
-                    >
-                      <Box pt={4} pb={4}>
-                        <Image
-                          w={"70"}
-                          h={"70"}
-                          rounded={"35"}
-                          source={item.userImg}
-                          alt="ProfileUserChat"
-                        />
-                      </Box>
-                      <Box
-                        justifyContent={"center"}
-                        p={"15"}
-                        pl={0}
-                        ml={"3"}
-                        w={"300"}
-                      >
-                        <Flex direction="column">
-                          <Box mb={"1"}>
-                            <Flex
-                              direction="row"
-                              justifyContent="space-between"
-                            >
-                              <Box>
-                                <Text
-                                  fontSize={"14"}
-                                  fontWeight={"bold"}
-                                  color={activeColors.tint}
-                                >
-                                  {item.userName}
-                                </Text>
-                              </Box>
-                              <Box mr={8}>
-                                <Menu>
-                                  <MenuTrigger>
-                                    <Icon
-                                      as={Ionicons}
-                                      name="ellipsis-vertical-outline"
-                                      size={6}
-                                      color={activeColors.tertiary}
-                                    />
-                                  </MenuTrigger>
-                                  <MenuOptions>
-                                    <MenuOption text="Cancel" />
-                                    <MenuOption text="Reschedule" />
-                                  </MenuOptions>
-                                </Menu>
-                              </Box>
-                            </Flex>
-                          </Box>
-                          <Text
-                            fontSize={"14"}
-                            mr={10}
-                            color={activeColors.tertiary}
-                          >
-                            {item.specialty}
-                          </Text>
-                          <HStack space={16}>
-                            <Text
-                              fontSize={"14"}
-                              mr={10}
-                              color={activeColors.tertiary}
-                            >
-                              <Text fontWeight="bold">{item.date1}</Text>
-                            </Text>
-                          </HStack>
-                        </Flex>
-                      </Box>
-                    </Box>
-                  </TouchableOpacity>
-                )}
+    <Box flex={1}>
+      <Box flex={1} backgroundColor={activeColors.primary}>
+        <Center>
+          <Box mt={4}>
+            <HStack alignItems="center" space={2} p={2} mt={10} rounded="md">
+              <Input
+                placeholder="Search MUA"
+                color={activeColors.tint}
+                placeholderTextColor={activeColors.tint}
+                size="lg"
+                w={"87%"}
+                rounded={12}
+                value={search}
+                onChangeText={(text) => setSearch(text)}
               />
-            </Box>
-          </Center>
-        </Box>
+              <Box backgroundColor={"#A01437"} p={2} rounded={6}>
+                <Icon as={Ionicons} name="search" size={6} color={"white"} />
+              </Box>
+            </HStack>
+            <FlatList
+              data={filteredData}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={{ width: "100%" }}
+                  onPress={() => navigation.navigate("BookedDetail", item)}
+                >
+                  <Box
+                    justifyContent="space-between"
+                    backgroundColor={activeColors.secondary}
+                    p={3}
+                    mb={3}
+                    flexDirection="row"
+                    alignItems="center"
+                  >
+                    <Box pt={4} pb={4}>
+                      <Image
+                        w={"70"}
+                        h={"70"}
+                        rounded={"35"}
+                        source={item.userImg}
+                        alt="ProfileUserChat"
+                      />
+                    </Box>
+                    <Box
+                      justifyContent={"center"}
+                      p={"15"}
+                      pl={0}
+                      ml={"3"}
+                      w={"300"}
+                    >
+                      <Flex direction="column">
+                        <Box mb={"1"}>
+                          <Flex
+                            direction="row"
+                            justifyContent="space-between"
+                          >
+                            <Box>
+                              <Text
+                                fontSize={"14"}
+                                fontWeight={"bold"}
+                                color={activeColors.tint}
+                              >
+                                {item.userName}
+                              </Text>
+                            </Box>
+                          </Flex>
+                        </Box>
+                        <Text
+                          fontSize={"14"}
+                          mr={10}
+                          color={activeColors.tertiary}
+                        >
+                          {item.specialty}
+                        </Text>
+                        
+                      </Flex>
+                    </Box>
+                  </Box>
+                </TouchableOpacity>
+              )}
+            />
+          </Box>
+        </Center>
       </Box>
-    </MenuProvider>
+    </Box>
   );
 };
 
